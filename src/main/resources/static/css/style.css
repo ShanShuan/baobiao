@@ -1,0 +1,180 @@
+@charset "utf-8";
+/* 你自己的样式 */
+.dataTables_LengthMenu{
+	padding-top: 10px;
+	padding-left: 10px;
+	display:inline-block;
+	float: left;
+}
+
+/* datagrid中内容显示 居左 居中 居右 */
+.column-left{
+	text-align:left;
+}
+.column-center{
+	text-align:center !important;
+}
+.column-right{
+	text-align:right !important;
+}
+
+/* 搜索input */
+.search-input {
+	width:120px;
+	margin-bottom: 5px;
+}
+
+.validform {
+	margin-bottom: 30px;
+}
+
+.validform_star {
+    display: inline-block;
+    height: 20px;
+    font-size: 12px;
+    vertical-align: middle;
+    color: #ef392b;
+}
+
+table.dataTable th.select-checkbox {
+    position: relative;
+}
+
+table.dataTable th.select-checkbox:before {
+    content: ' ';
+    margin-top: -6px;
+    margin-left: -6px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+table.dataTable th.select-checkbox:before, table.dataTable th.select-checkbox:after {
+    display: block;
+    position: absolute;
+    /*top: 1.2em;*/
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    box-sizing: border-box;
+}
+
+table.dataTable tr.selected th.select-checkbox:after {
+    content: '\2714';
+    margin-top: -11px;
+    margin-left: -4px;
+    text-align: center;
+    text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+}
+
+.chart-title{ font-size: 16px; padding: 10px; border-bottom: 1px solid #dcdcdc; }
+.chart-tiem{ width: 50%; height: 400px; float: left; padding: 15px; box-sizing:border-box; }
+
+.pai-icon{display:inline-block; width:23px; height:30px; background:url("../images/pai.png") no-repeat; margin-left:5px; vertical-align: middle;}
+.oper-panel a{ margin:0 5px;}
+
+/*cms样式*/
+.file-directory{padding-left:20px;background:url('../images/fileIcon/directory.png') no-repeat 3px center}
+.file-file{padding-left:20px;background:url('../images/fileIcon/file.png') no-repeat 2px center}
+.file-zip{padding-left:20px;background:url('../images/fileIcon/zip.png') no-repeat 2px center}
+.file-image{padding-left:20px;background:url('../images/fileIcon/image.png') no-repeat 2px center}
+.file-text{padding-left:20px;background:url('../images/fileIcon/text.png') no-repeat 2px center}
+em.required{color:red;font-style:normal;}
+
+
+.content-header {
+    position: relative;
+    padding: 15px 15px 0 15px
+}
+
+.content-header>h1 {
+    margin: 0;
+    font-size: 24px
+}
+.in-prompt {
+    padding: 2px 8px;
+    background: url(../images/fileIcon/prompt.png) center center no-repeat;
+}
+
+.box-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 5px;
+}
+
+.form-horizontal .control-label  {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: right;
+}
+.form-horizontal .form-group {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+#timeCountDown{ color:#f00;}
+#timeCountDown em{font-style: normal;}
+
+.menubox{ background-color:#f6f6f6; border:1px solid #e5e5e5; border-right:none; border-bottom:none; }
+.menubox li{ line-height:300%; border-bottom:1px solid #e5e5e5; margin-right:-1px;}
+.menubox li a{ display:block; text-align:center; }
+.menubox li.cur{ background-color:#fff; border-right:1px solid #fff;}
+.menubox li.cur a{ color:#148cf1;}
+
+.tabform{ border:1px solid #e5e5e5; padding-bottom:25px;}
+
+.team-tool{ padding-bottom:15px; font-size:12px;}
+.team-handle{ float:right; padding-right:10px; }
+.team-handle a{ color:#2d6dcc; margin:0 10px;}
+.team-tool span{ margin-right:25px;}
+.team-form-bottom{ padding-top:15px; text-align:right; font-size:14px; padding-right:10px;}
+.team-form-bottom span{ margin-right:15px;}
+.team-form-bottom span em{ font-style: normal; color:#f60; font-size:18px;}
+.team-form-subtotal{color:#f60;}
+
+.static-form .row{ padding-bottom:10px;}
+.none{ display:none;}
+
+/*numSpinner*/
+.numSpinnerBox{ display: inline-block; line-height:24px;}
+.numSpinnerBox a{ display: inline-block;  cursor: pointer; vertical-align: middle; font-size: 20px; height: 24px;}
+.numSpinnerBox a:hover{text-decoration: none;}
+.numSpinnerBox a i:before{ font-family: "icomoon"; font-style: normal;font-weight: normal;font-variant: normal;text-transform: none;-webkit-font-smoothing: antialiased;display: inline-block; text-decoration: inherit;}
+.numSpinnerBox a.sub{ color: #999;}
+.numSpinnerBox a.sub i:before{content: "\e61c"; }
+.numSpinnerBox a.add{ color: #999;}
+.numSpinnerBox a.add i:before{content: "\e61b"; }
+.numSpinnerBox a.c-f60{color: #f60;}
+.numSpinnerBox input{ width: 32px; height: 24px; line-height:24px; text-align: center; border:none; vertical-align: middle; box-sizing: border-box; font-size: 12px; border:none;margin: 0 2px; color: #f60;}
+
+/*成团优惠*/
+.teamOrderLabel { background-color: #f5f5f5; color: #dd514c; box-shadow: 0 0 1px 0px black;}
+
+/*详细页面样式*/
+.table-view td{ line-height:24px; width:38%; color:#000;}
+.table-view td.table-title{ background-color:#f5fafe; width:12%; text-align:left; font-weight:600;}
+
+/*悬浮层*/
+.layer{position: fixed; pointer-events: auto; top: 65px;right: 30px; padding: 0; background-color: #fff;-webkit-background-clip: content;border-radius: 2px;box-shadow: 1px 1px 50px rgba(0,0,0,.3); border: 1px solid #d2d2d2; display:none;}
+.layer-title{padding: 0 80px 0 20px; height: 42px;line-height: 42px; border-bottom: 1px solid #eee;font-size: 14px;color: #333;overflow: hidden;background-color: #F8F8F8; border-radius: 2px 2px 0 0;}
+.layer-content{position: relative;overflow: auto; padding:10px;}
+.layer-wrap li{line-height: 26px; margin-left: 20px; overflow: visible;list-style-type: disc;}
+.layer-wrap li a{ display:block;}
+.layer-setwin{position: absolute;  right: 15px;   top: 15px;   font-size: 0;  line-height: initial;}
+.layer-setwin a{position: relative; width: 16px; height: 16px; margin-left: 10px; font-size: 12px; background: url(../images/icon.png) no-repeat;background-position: 1px -40px; cursor: pointer; display: inline-block; vertical-align: top;}
+
+.user{position: fixed; width:48px; height:48px; top: 65px;right: 30px; border:1px solid #ececec; background-color:#fff;}
+.user a{ display:block; width:48px; height:48px; background: url(../images/userIcon.png) no-repeat; background-size:100% 100%; margin:0 auto;}
+
+.dataTable td{
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.control-item{ padding: 5px 0;}
+.control-item span{ margin-bottom: 10px; display: inline-block;}
+.control-item .btn-primary{ margin-left: 25px; margin-bottom: 10px;}

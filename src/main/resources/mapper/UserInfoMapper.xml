@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pc.huangshan.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.pc.huangshan.model.UserInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ACC_NAME" jdbcType="VARCHAR" property="accName" />
+    <result column="ACC_PASS" jdbcType="VARCHAR" property="accPass" />
+    <result column="ACC_NO" jdbcType="VARCHAR" property="accNo" />
+    <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+    <result column="ACC_TYPE" jdbcType="CHAR" property="accType" />
+    <result column="ACC_STATUS" jdbcType="CHAR" property="accStatus" />
+    <result column="IF_ADMIN" jdbcType="CHAR" property="ifAdmin" />
+    <result column="ORDER_TIPS" jdbcType="VARCHAR" property="orderTips" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="MODIFY_BY" jdbcType="VARCHAR" property="modifyBy" />
+    <result column="DELETED" jdbcType="CHAR" property="deleted" />
+    <result column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="LOGIN_DATE" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="WRONG_TIMES" jdbcType="INTEGER" property="wrongTimes" />
+    <result column="LOGIN_LOCK_TIME" jdbcType="TIMESTAMP" property="loginLockTime" />
+    <result column="RESET_PASS_LOCK_TIME" jdbcType="TIMESTAMP" property="resetPassLockTime" />
+    <result column="DISTRIBUTOR_ID" jdbcType="INTEGER" property="distributorId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ACC_NAME, ACC_PASS, ACC_NO, REAL_NAME, ACC_TYPE, ACC_STATUS, IF_ADMIN, ORDER_TIPS, 
+    CREATE_TIME, CREATE_BY, MODIFY_TIME, MODIFY_BY, DELETED, corp_code, LOGIN_DATE, WRONG_TIMES, 
+    LOGIN_LOCK_TIME, RESET_PASS_LOCK_TIME, DISTRIBUTOR_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="findByUserName" resultMap="BaseResultMap">
+      select *  from user_info where ACC_NAME=#{username}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pc.huangshan.model.UserInfo">
+    insert into user_info (ID, ACC_NAME, ACC_PASS, 
+      ACC_NO, REAL_NAME, ACC_TYPE, 
+      ACC_STATUS, IF_ADMIN, ORDER_TIPS, 
+      CREATE_TIME, CREATE_BY, MODIFY_TIME, 
+      MODIFY_BY, DELETED, corp_code, 
+      LOGIN_DATE, WRONG_TIMES, LOGIN_LOCK_TIME, 
+      RESET_PASS_LOCK_TIME, DISTRIBUTOR_ID)
+    values (#{id,jdbcType=INTEGER}, #{accName,jdbcType=VARCHAR}, #{accPass,jdbcType=VARCHAR}, 
+      #{accNo,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{accType,jdbcType=CHAR}, 
+      #{accStatus,jdbcType=CHAR}, #{ifAdmin,jdbcType=CHAR}, #{orderTips,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=VARCHAR}, #{deleted,jdbcType=CHAR}, #{corpCode,jdbcType=VARCHAR}, 
+      #{loginDate,jdbcType=TIMESTAMP}, #{wrongTimes,jdbcType=INTEGER}, #{loginLockTime,jdbcType=TIMESTAMP}, 
+      #{resetPassLockTime,jdbcType=TIMESTAMP}, #{distributorId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pc.huangshan.model.UserInfo">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="accName != null">
+        ACC_NAME,
+      </if>
+      <if test="accPass != null">
+        ACC_PASS,
+      </if>
+      <if test="accNo != null">
+        ACC_NO,
+      </if>
+      <if test="realName != null">
+        REAL_NAME,
+      </if>
+      <if test="accType != null">
+        ACC_TYPE,
+      </if>
+      <if test="accStatus != null">
+        ACC_STATUS,
+      </if>
+      <if test="ifAdmin != null">
+        IF_ADMIN,
+      </if>
+      <if test="orderTips != null">
+        ORDER_TIPS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME,
+      </if>
+      <if test="modifyBy != null">
+        MODIFY_BY,
+      </if>
+      <if test="deleted != null">
+        DELETED,
+      </if>
+      <if test="corpCode != null">
+        corp_code,
+      </if>
+      <if test="loginDate != null">
+        LOGIN_DATE,
+      </if>
+      <if test="wrongTimes != null">
+        WRONG_TIMES,
+      </if>
+      <if test="loginLockTime != null">
+        LOGIN_LOCK_TIME,
+      </if>
+      <if test="resetPassLockTime != null">
+        RESET_PASS_LOCK_TIME,
+      </if>
+      <if test="distributorId != null">
+        DISTRIBUTOR_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accName != null">
+        #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accPass != null">
+        #{accPass,jdbcType=VARCHAR},
+      </if>
+      <if test="accNo != null">
+        #{accNo,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="accType != null">
+        #{accType,jdbcType=CHAR},
+      </if>
+      <if test="accStatus != null">
+        #{accStatus,jdbcType=CHAR},
+      </if>
+      <if test="ifAdmin != null">
+        #{ifAdmin,jdbcType=CHAR},
+      </if>
+      <if test="orderTips != null">
+        #{orderTips,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null">
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="corpCode != null">
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginDate != null">
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wrongTimes != null">
+        #{wrongTimes,jdbcType=INTEGER},
+      </if>
+      <if test="loginLockTime != null">
+        #{loginLockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resetPassLockTime != null">
+        #{resetPassLockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="distributorId != null">
+        #{distributorId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pc.huangshan.model.UserInfo">
+    update user_info
+    <set>
+      <if test="accName != null">
+        ACC_NAME = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accPass != null">
+        ACC_PASS = #{accPass,jdbcType=VARCHAR},
+      </if>
+      <if test="accNo != null">
+        ACC_NO = #{accNo,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="accType != null">
+        ACC_TYPE = #{accType,jdbcType=CHAR},
+      </if>
+      <if test="accStatus != null">
+        ACC_STATUS = #{accStatus,jdbcType=CHAR},
+      </if>
+      <if test="ifAdmin != null">
+        IF_ADMIN = #{ifAdmin,jdbcType=CHAR},
+      </if>
+      <if test="orderTips != null">
+        ORDER_TIPS = #{orderTips,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null">
+        MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="corpCode != null">
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginDate != null">
+        LOGIN_DATE = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wrongTimes != null">
+        WRONG_TIMES = #{wrongTimes,jdbcType=INTEGER},
+      </if>
+      <if test="loginLockTime != null">
+        LOGIN_LOCK_TIME = #{loginLockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resetPassLockTime != null">
+        RESET_PASS_LOCK_TIME = #{resetPassLockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="distributorId != null">
+        DISTRIBUTOR_ID = #{distributorId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pc.huangshan.model.UserInfo">
+    update user_info
+    set ACC_NAME = #{accName,jdbcType=VARCHAR},
+      ACC_PASS = #{accPass,jdbcType=VARCHAR},
+      ACC_NO = #{accNo,jdbcType=VARCHAR},
+      REAL_NAME = #{realName,jdbcType=VARCHAR},
+      ACC_TYPE = #{accType,jdbcType=CHAR},
+      ACC_STATUS = #{accStatus,jdbcType=CHAR},
+      IF_ADMIN = #{ifAdmin,jdbcType=CHAR},
+      ORDER_TIPS = #{orderTips,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      DELETED = #{deleted,jdbcType=CHAR},
+      corp_code = #{corpCode,jdbcType=VARCHAR},
+      LOGIN_DATE = #{loginDate,jdbcType=TIMESTAMP},
+      WRONG_TIMES = #{wrongTimes,jdbcType=INTEGER},
+      LOGIN_LOCK_TIME = #{loginLockTime,jdbcType=TIMESTAMP},
+      RESET_PASS_LOCK_TIME = #{resetPassLockTime,jdbcType=TIMESTAMP},
+      DISTRIBUTOR_ID = #{distributorId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

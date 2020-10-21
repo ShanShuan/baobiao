@@ -1,0 +1,31 @@
+.mr10{ margin-right:10px;}
+.mr15{ margin-right:15px;}
+.login_top{ background:url(../images/managelogin/mana_login_topbg.jpg) no-repeat center 0; width:100%; height:368px;}
+.login_form{ width:410px; overflow:hidden; margin:10px auto;}
+.login_txt_box{ width:408px; border:#dfdfdf 1px solid; margin-bottom:10px;}
+.login_txt_ico1{ background:url(/images/managelogin/login_ico1.jpg) no-repeat; width:40px; height:39px; display:block; float:left;}
+.login_txt_ico2{ background:url(/images/managelogin/login_ico2.jpg) no-repeat; width:40px; height:39px; display:block; float:left;}
+.login_txt{ width:367px; padding:10px 0; height:19px; border:0; display:block; float:left; border-left:#dfdfdf 1px solid; color:#333; font:normal 14px/19px "Microsoft Yahei"; text-indent:10px;}
+.login_txt_box2{ width:410px; margin-bottom:10px;}
+.login_txt_code{border:#dfdfdf 1px solid; width:239px; height:19px; float:left; color:#333; font:normal 14px/19px "Microsoft Yahei"; text-indent:10px;padding:10px 0;}
+.change{ float:right; background:url(../images/managelogin/change.jpg) no-repeat right center; padding-right:20px; color:#a6a6a6; font:normal 14px/39px "Microsoft Yahei";}
+.login_Btn{ float: left; border:0; width:200px; height:39px; text-align: center; font:normal 16px/39px "Microsoft Yahei"; cursor: pointer;}
+.login_Btn_bg1{ background: #4cabe0; color: #fff;}
+.login_Btn_bg2{ background: #e8e8e8; color: #4d4d4d;}
+.login-arror{display:block; width:15px; height:8px; float:right; background:url(../images/managelogin/login-arror.jpg) no-repeat; margin:15px 10px;}
+.login-change{ width:327px;}
+.change-panel{position: absolute; width:367px; background-color:#fff; border:1px solid #dfdfdf; border-top:none; display:none;}
+.change-panel li{ height:39px; line-height:39px; padding:0 10px; font-size:14px; color:#666; cursor: pointer;}
+.change-panel li:hover{ background-color:#e6edf4;}
+
+
+
+
+
+
+
+
+
+
+
+

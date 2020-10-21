@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pc.huangshan.dao.ParkInfoMapper">
+  <resultMap id="BaseResultMap" type="com.pc.huangshan.model.ParkInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ALIAS_NAME" jdbcType="VARCHAR" property="aliasName" />
+    <result column="ANOTHER_NAME" jdbcType="VARCHAR" property="anotherName" />
+    <result column="GOODS_CODE" jdbcType="VARCHAR" property="goodsCode" />
+    <result column="SUPPLY_ID" jdbcType="INTEGER" property="supplyId" />
+    <result column="SUPPLY_NAME" jdbcType="VARCHAR" property="supplyName" />
+    <result column="LINK_IMG" jdbcType="VARCHAR" property="linkImg" />
+    <result column="LINK_MOBILE_IMG" jdbcType="VARCHAR" property="linkMobileImg" />
+    <result column="AREA_CODE" jdbcType="VARCHAR" property="areaCode" />
+    <result column="AREA_NAME" jdbcType="VARCHAR" property="areaName" />
+    <result column="REGION_CODE" jdbcType="VARCHAR" property="regionCode" />
+    <result column="AREA_ADDR" jdbcType="VARCHAR" property="areaAddr" />
+    <result column="ADDR" jdbcType="VARCHAR" property="addr" />
+    <result column="LATITUDE_LONGITUDE" jdbcType="VARCHAR" property="latitudeLongitude" />
+    <result column="LINK_TEL" jdbcType="VARCHAR" property="linkTel" />
+    <result column="LINK_NAME" jdbcType="VARCHAR" property="linkName" />
+    <result column="SUMMARY" jdbcType="VARCHAR" property="summary" />
+    <result column="TRAFFIC_DESC" jdbcType="VARCHAR" property="trafficDesc" />
+    <result column="OPEN_TIME" jdbcType="VARCHAR" property="openTime" />
+    <result column="END_TIME" jdbcType="VARCHAR" property="endTime" />
+    <result column="GOODS_LEVEL" jdbcType="CHAR" property="goodsLevel" />
+    <result column="PRICE_SHOW" jdbcType="DECIMAL" property="priceShow" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="SORT_NO" jdbcType="INTEGER" property="sortNo" />
+    <result column="SALES_NUM" jdbcType="INTEGER" property="salesNum" />
+    <result column="ENABLED" jdbcType="CHAR" property="enabled" />
+    <result column="SYSTEM_CODE" jdbcType="VARCHAR" property="systemCode" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="MODIFY_BY" jdbcType="VARCHAR" property="modifyBy" />
+    <result column="DELETED" jdbcType="CHAR" property="deleted" />
+    <result column="SYNCED" jdbcType="CHAR" property="synced" />
+    <result column="CORP_CODE" jdbcType="VARCHAR" property="corpCode" />
+    <result column="LABELS" jdbcType="VARCHAR" property="labels" />
+    <result column="SYNC_PLATFORM" jdbcType="VARCHAR" property="syncPlatform" />
+    <result column="CLASSIFY_ID" jdbcType="INTEGER" property="classifyId" />
+    <result column="CUSTOM_SORT" jdbcType="INTEGER" property="customSort" />
+    <result column="GROUP_CODE" jdbcType="VARCHAR" property="groupCode" />
+    <result column="PRODUCT_LABEL" jdbcType="VARCHAR" property="productLabel" />
+    <result column="SHOW_LOGO" jdbcType="VARCHAR" property="showLogo" />
+    <result column="SALES_CANAL" jdbcType="VARCHAR" property="salesCanal" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pc.huangshan.model.ParkInfoWithBLOBs">
+    <result column="ORDER_NOTICE" jdbcType="LONGVARCHAR" property="orderNotice" />
+    <result column="CONTENT" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, ALIAS_NAME, ANOTHER_NAME, GOODS_CODE, SUPPLY_ID, SUPPLY_NAME, LINK_IMG, 
+    LINK_MOBILE_IMG, AREA_CODE, AREA_NAME, REGION_CODE, AREA_ADDR, ADDR, LATITUDE_LONGITUDE, 
+    LINK_TEL, LINK_NAME, SUMMARY, TRAFFIC_DESC, OPEN_TIME, END_TIME, GOODS_LEVEL, PRICE_SHOW, 
+    PRICE, SORT_NO, SALES_NUM, ENABLED, SYSTEM_CODE, CREATE_TIME, CREATE_BY, MODIFY_TIME, 
+    MODIFY_BY, DELETED, SYNCED, CORP_CODE, LABELS, SYNC_PLATFORM, CLASSIFY_ID, CUSTOM_SORT, 
+    GROUP_CODE, PRODUCT_LABEL, SHOW_LOGO, SALES_CANAL
+  </sql>
+  <sql id="Blob_Column_List">
+    ORDER_NOTICE, CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from park_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from park_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pc.huangshan.model.ParkInfoWithBLOBs">
+    insert into park_info (ID, NAME, ALIAS_NAME, 
+      ANOTHER_NAME, GOODS_CODE, SUPPLY_ID, 
+      SUPPLY_NAME, LINK_IMG, LINK_MOBILE_IMG, 
+      AREA_CODE, AREA_NAME, REGION_CODE, 
+      AREA_ADDR, ADDR, LATITUDE_LONGITUDE, 
+      LINK_TEL, LINK_NAME, SUMMARY, 
+      TRAFFIC_DESC, OPEN_TIME, END_TIME, 
+      GOODS_LEVEL, PRICE_SHOW, PRICE, 
+      SORT_NO, SALES_NUM, ENABLED, 
+      SYSTEM_CODE, CREATE_TIME, CREATE_BY, 
+      MODIFY_TIME, MODIFY_BY, DELETED, 
+      SYNCED, CORP_CODE, LABELS, 
+      SYNC_PLATFORM, CLASSIFY_ID, CUSTOM_SORT, 
+      GROUP_CODE, PRODUCT_LABEL, SHOW_LOGO, 
+      SALES_CANAL, ORDER_NOTICE, CONTENT
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{aliasName,jdbcType=VARCHAR}, 
+      #{anotherName,jdbcType=VARCHAR}, #{goodsCode,jdbcType=VARCHAR}, #{supplyId,jdbcType=INTEGER}, 
+      #{supplyName,jdbcType=VARCHAR}, #{linkImg,jdbcType=VARCHAR}, #{linkMobileImg,jdbcType=VARCHAR}, 
+      #{areaCode,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, #{regionCode,jdbcType=VARCHAR}, 
+      #{areaAddr,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{latitudeLongitude,jdbcType=VARCHAR}, 
+      #{linkTel,jdbcType=VARCHAR}, #{linkName,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{trafficDesc,jdbcType=VARCHAR}, #{openTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{goodsLevel,jdbcType=CHAR}, #{priceShow,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, 
+      #{sortNo,jdbcType=INTEGER}, #{salesNum,jdbcType=INTEGER}, #{enabled,jdbcType=CHAR}, 
+      #{systemCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=VARCHAR}, #{deleted,jdbcType=CHAR}, 
+      #{synced,jdbcType=CHAR}, #{corpCode,jdbcType=VARCHAR}, #{labels,jdbcType=VARCHAR}, 
+      #{syncPlatform,jdbcType=VARCHAR}, #{classifyId,jdbcType=INTEGER}, #{customSort,jdbcType=INTEGER}, 
+      #{groupCode,jdbcType=VARCHAR}, #{productLabel,jdbcType=VARCHAR}, #{showLogo,jdbcType=VARCHAR}, 
+      #{salesCanal,jdbcType=VARCHAR}, #{orderNotice,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pc.huangshan.model.ParkInfoWithBLOBs">
+    insert into park_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="aliasName != null">
+        ALIAS_NAME,
+      </if>
+      <if test="anotherName != null">
+        ANOTHER_NAME,
+      </if>
+      <if test="goodsCode != null">
+        GOODS_CODE,
+      </if>
+      <if test="supplyId != null">
+        SUPPLY_ID,
+      </if>
+      <if test="supplyName != null">
+        SUPPLY_NAME,
+      </if>
+      <if test="linkImg != null">
+        LINK_IMG,
+      </if>
+      <if test="linkMobileImg != null">
+        LINK_MOBILE_IMG,
+      </if>
+      <if test="areaCode != null">
+        AREA_CODE,
+      </if>
+      <if test="areaName != null">
+        AREA_NAME,
+      </if>
+      <if test="regionCode != null">
+        REGION_CODE,
+      </if>
+      <if test="areaAddr != null">
+        AREA_ADDR,
+      </if>
+      <if test="addr != null">
+        ADDR,
+      </if>
+      <if test="latitudeLongitude != null">
+        LATITUDE_LONGITUDE,
+      </if>
+      <if test="linkTel != null">
+        LINK_TEL,
+      </if>
+      <if test="linkName != null">
+        LINK_NAME,
+      </if>
+      <if test="summary != null">
+        SUMMARY,
+      </if>
+      <if test="trafficDesc != null">
+        TRAFFIC_DESC,
+      </if>
+      <if test="openTime != null">
+        OPEN_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="goodsLevel != null">
+        GOODS_LEVEL,
+      </if>
+      <if test="priceShow != null">
+        PRICE_SHOW,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="sortNo != null">
+        SORT_NO,
+      </if>
+      <if test="salesNum != null">
+        SALES_NUM,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+      <if test="systemCode != null">
+        SYSTEM_CODE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME,
+      </if>
+      <if test="modifyBy != null">
+        MODIFY_BY,
+      </if>
+      <if test="deleted != null">
+        DELETED,
+      </if>
+      <if test="synced != null">
+        SYNCED,
+      </if>
+      <if test="corpCode != null">
+        CORP_CODE,
+      </if>
+      <if test="labels != null">
+        LABELS,
+      </if>
+      <if test="syncPlatform != null">
+        SYNC_PLATFORM,
+      </if>
+      <if test="classifyId != null">
+        CLASSIFY_ID,
+      </if>
+      <if test="customSort != null">
+        CUSTOM_SORT,
+      </if>
+      <if test="groupCode != null">
+        GROUP_CODE,
+      </if>
+      <if test="productLabel != null">
+        PRODUCT_LABEL,
+      </if>
+      <if test="showLogo != null">
+        SHOW_LOGO,
+      </if>
+      <if test="salesCanal != null">
+        SALES_CANAL,
+      </if>
+      <if test="orderNotice != null">
+        ORDER_NOTICE,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasName != null">
+        #{aliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="anotherName != null">
+        #{anotherName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null">
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyId != null">
+        #{supplyId,jdbcType=INTEGER},
+      </if>
+      <if test="supplyName != null">
+        #{supplyName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkImg != null">
+        #{linkImg,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMobileImg != null">
+        #{linkMobileImg,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null">
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaAddr != null">
+        #{areaAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="latitudeLongitude != null">
+        #{latitudeLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="linkTel != null">
+        #{linkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="linkName != null">
+        #{linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficDesc != null">
+        #{trafficDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null">
+        #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsLevel != null">
+        #{goodsLevel,jdbcType=CHAR},
+      </if>
+      <if test="priceShow != null">
+        #{priceShow,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="sortNo != null">
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="salesNum != null">
+        #{salesNum,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="systemCode != null">
+        #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null">
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="synced != null">
+        #{synced,jdbcType=CHAR},
+      </if>
+      <if test="corpCode != null">
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=VARCHAR},
+      </if>
+      <if test="syncPlatform != null">
+        #{syncPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="classifyId != null">
+        #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="customSort != null">
+        #{customSort,jdbcType=INTEGER},
+      </if>
+      <if test="groupCode != null">
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productLabel != null">
+        #{productLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="showLogo != null">
+        #{showLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="salesCanal != null">
+        #{salesCanal,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNotice != null">
+        #{orderNotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pc.huangshan.model.ParkInfoWithBLOBs">
+    update park_info
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasName != null">
+        ALIAS_NAME = #{aliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="anotherName != null">
+        ANOTHER_NAME = #{anotherName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null">
+        GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyId != null">
+        SUPPLY_ID = #{supplyId,jdbcType=INTEGER},
+      </if>
+      <if test="supplyName != null">
+        SUPPLY_NAME = #{supplyName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkImg != null">
+        LINK_IMG = #{linkImg,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMobileImg != null">
+        LINK_MOBILE_IMG = #{linkMobileImg,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        AREA_CODE = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        AREA_NAME = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null">
+        REGION_CODE = #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaAddr != null">
+        AREA_ADDR = #{areaAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="latitudeLongitude != null">
+        LATITUDE_LONGITUDE = #{latitudeLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="linkTel != null">
+        LINK_TEL = #{linkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="linkName != null">
+        LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        SUMMARY = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficDesc != null">
+        TRAFFIC_DESC = #{trafficDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null">
+        OPEN_TIME = #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsLevel != null">
+        GOODS_LEVEL = #{goodsLevel,jdbcType=CHAR},
+      </if>
+      <if test="priceShow != null">
+        PRICE_SHOW = #{priceShow,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="sortNo != null">
+        SORT_NO = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="salesNum != null">
+        SALES_NUM = #{salesNum,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        ENABLED = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="systemCode != null">
+        SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null">
+        MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="synced != null">
+        SYNCED = #{synced,jdbcType=CHAR},
+      </if>
+      <if test="corpCode != null">
+        CORP_CODE = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null">
+        LABELS = #{labels,jdbcType=VARCHAR},
+      </if>
+      <if test="syncPlatform != null">
+        SYNC_PLATFORM = #{syncPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="classifyId != null">
+        CLASSIFY_ID = #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="customSort != null">
+        CUSTOM_SORT = #{customSort,jdbcType=INTEGER},
+      </if>
+      <if test="groupCode != null">
+        GROUP_CODE = #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productLabel != null">
+        PRODUCT_LABEL = #{productLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="showLogo != null">
+        SHOW_LOGO = #{showLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="salesCanal != null">
+        SALES_CANAL = #{salesCanal,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNotice != null">
+        ORDER_NOTICE = #{orderNotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pc.huangshan.model.ParkInfoWithBLOBs">
+    update park_info
+    set NAME = #{name,jdbcType=VARCHAR},
+      ALIAS_NAME = #{aliasName,jdbcType=VARCHAR},
+      ANOTHER_NAME = #{anotherName,jdbcType=VARCHAR},
+      GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      SUPPLY_ID = #{supplyId,jdbcType=INTEGER},
+      SUPPLY_NAME = #{supplyName,jdbcType=VARCHAR},
+      LINK_IMG = #{linkImg,jdbcType=VARCHAR},
+      LINK_MOBILE_IMG = #{linkMobileImg,jdbcType=VARCHAR},
+      AREA_CODE = #{areaCode,jdbcType=VARCHAR},
+      AREA_NAME = #{areaName,jdbcType=VARCHAR},
+      REGION_CODE = #{regionCode,jdbcType=VARCHAR},
+      AREA_ADDR = #{areaAddr,jdbcType=VARCHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      LATITUDE_LONGITUDE = #{latitudeLongitude,jdbcType=VARCHAR},
+      LINK_TEL = #{linkTel,jdbcType=VARCHAR},
+      LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      SUMMARY = #{summary,jdbcType=VARCHAR},
+      TRAFFIC_DESC = #{trafficDesc,jdbcType=VARCHAR},
+      OPEN_TIME = #{openTime,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=VARCHAR},
+      GOODS_LEVEL = #{goodsLevel,jdbcType=CHAR},
+      PRICE_SHOW = #{priceShow,jdbcType=DECIMAL},
+      PRICE = #{price,jdbcType=DECIMAL},
+      SORT_NO = #{sortNo,jdbcType=INTEGER},
+      SALES_NUM = #{salesNum,jdbcType=INTEGER},
+      ENABLED = #{enabled,jdbcType=CHAR},
+      SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      DELETED = #{deleted,jdbcType=CHAR},
+      SYNCED = #{synced,jdbcType=CHAR},
+      CORP_CODE = #{corpCode,jdbcType=VARCHAR},
+      LABELS = #{labels,jdbcType=VARCHAR},
+      SYNC_PLATFORM = #{syncPlatform,jdbcType=VARCHAR},
+      CLASSIFY_ID = #{classifyId,jdbcType=INTEGER},
+      CUSTOM_SORT = #{customSort,jdbcType=INTEGER},
+      GROUP_CODE = #{groupCode,jdbcType=VARCHAR},
+      PRODUCT_LABEL = #{productLabel,jdbcType=VARCHAR},
+      SHOW_LOGO = #{showLogo,jdbcType=VARCHAR},
+      SALES_CANAL = #{salesCanal,jdbcType=VARCHAR},
+      ORDER_NOTICE = #{orderNotice,jdbcType=LONGVARCHAR},
+      CONTENT = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pc.huangshan.model.ParkInfo">
+    update park_info
+    set NAME = #{name,jdbcType=VARCHAR},
+      ALIAS_NAME = #{aliasName,jdbcType=VARCHAR},
+      ANOTHER_NAME = #{anotherName,jdbcType=VARCHAR},
+      GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      SUPPLY_ID = #{supplyId,jdbcType=INTEGER},
+      SUPPLY_NAME = #{supplyName,jdbcType=VARCHAR},
+      LINK_IMG = #{linkImg,jdbcType=VARCHAR},
+      LINK_MOBILE_IMG = #{linkMobileImg,jdbcType=VARCHAR},
+      AREA_CODE = #{areaCode,jdbcType=VARCHAR},
+      AREA_NAME = #{areaName,jdbcType=VARCHAR},
+      REGION_CODE = #{regionCode,jdbcType=VARCHAR},
+      AREA_ADDR = #{areaAddr,jdbcType=VARCHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      LATITUDE_LONGITUDE = #{latitudeLongitude,jdbcType=VARCHAR},
+      LINK_TEL = #{linkTel,jdbcType=VARCHAR},
+      LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      SUMMARY = #{summary,jdbcType=VARCHAR},
+      TRAFFIC_DESC = #{trafficDesc,jdbcType=VARCHAR},
+      OPEN_TIME = #{openTime,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=VARCHAR},
+      GOODS_LEVEL = #{goodsLevel,jdbcType=CHAR},
+      PRICE_SHOW = #{priceShow,jdbcType=DECIMAL},
+      PRICE = #{price,jdbcType=DECIMAL},
+      SORT_NO = #{sortNo,jdbcType=INTEGER},
+      SALES_NUM = #{salesNum,jdbcType=INTEGER},
+      ENABLED = #{enabled,jdbcType=CHAR},
+      SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      DELETED = #{deleted,jdbcType=CHAR},
+      SYNCED = #{synced,jdbcType=CHAR},
+      CORP_CODE = #{corpCode,jdbcType=VARCHAR},
+      LABELS = #{labels,jdbcType=VARCHAR},
+      SYNC_PLATFORM = #{syncPlatform,jdbcType=VARCHAR},
+      CLASSIFY_ID = #{classifyId,jdbcType=INTEGER},
+      CUSTOM_SORT = #{customSort,jdbcType=INTEGER},
+      GROUP_CODE = #{groupCode,jdbcType=VARCHAR},
+      PRODUCT_LABEL = #{productLabel,jdbcType=VARCHAR},
+      SHOW_LOGO = #{showLogo,jdbcType=VARCHAR},
+      SALES_CANAL = #{salesCanal,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultType="com.pc.huangshan.model.ParkInfo">
+    select *  from park_info
+  </select>
+</mapper>

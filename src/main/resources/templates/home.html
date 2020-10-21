@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <link rel="Bookmark" href="http://pc.huangshan.com.cn/favicon.ico">
+    <link rel="Shortcut Icon" href="http://pc.huangshan.com.cn/favicon.ico">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/static/h-ui/lib/html5.js"></script>
+    <script type="text/javascript" src="/static/h-ui/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/static/h-ui/lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <link href="/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="/h-ui/css/H-ui.admin.css" rel="stylesheet" type="text/css">
+    <link href="/h-ui/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css">
+    <link href="/css/skin.css" rel="stylesheet" type="text/css" id="skin">
+    <link href="/css/select.jqueryui.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/zTreeStyle.css" rel="stylesheet" type="text/css">
+
+    <title>黄山旅游官方平台</title>
+    <meta name="keywords" content="黄山旅游官方平台">
+    <meta name="description" content="黄山旅游官方平台">
+    <link rel="stylesheet" href="./黄山旅游官方平台_files/layer.css" id="layui_layer_skinlayercss" style="">
+    <link rel="stylesheet" href="./黄山旅游官方平台_files/layer.ext.css" id="layui_layer_skinlayerextcss" style="">
+    <link href="./黄山旅游官方平台_files/WdatePicker.css" rel="stylesheet" type="text/css">
+    <style class="mpa-style-fix ImageGatherer">.FotorFrame {
+        position: fixed !important
+    }</style>
+    <style class="mpa-style-fix SideFunctionPanel">.weui-desktop-online-faq__wrp {
+        top: 304px !important;
+        bottom: unset !important
+    }
+
+    .weui-desktop-online-faq__wrp .weui-desktop-online-faq__switch {
+        width: 38px !important
+    }</style>
+</head>
+<body mpa-version="7.15.6" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
+<!-- 头部 -->
+<header class="Hui-header cl" id="home_index">
+    <a class="Hui-logo l" title="黄山旅游官方平台">黄山旅游官方平台</a>
+    <span class="Hui-subtitle l">v3.0</span>
+
+    <!-- 导航 -->
+    <nav class="mainnav cl" role="navigation" id="Hui-nav">
+        <ul id="menu">
+            <li class="current"><a href="javascript:;">报表中心</a></li>
+        </ul>
+    </nav>
+
+    <ul style="position: absolute;top: 10px;right: 120px;text-align:center;">
+        <li class="dropDown">
+            平台管理员
+            &nbsp;&nbsp
+            欢迎 <span th:text="${name}"/>登录
+        </li>
+    </ul>
+
+    <ul class="Hui-userbar">
+
+        <li class="dropDown dropDown_hover">
+            <a href="javascript:void(0)" class="dropDown_A">
+                <i class="Hui-iconfont">
+                    </i></a>
+            <ul class="dropDown-menu radius box-shadow">
+                <li><a href="/login/loginOut">退出</a></li>
+
+            </ul>
+        </li>
+    </ul>
+</header>
+<!-- 左侧导航 -->
+<aside class="Hui-aside">
+    <div class="menu_dropdown bk_2" id="asidenav">
+        <ul id="Huifold1" class="Huifold">
+            <li class="item">
+                <h4>财务报表<b>+</b></h4>
+                <div class="info"> 内容<br>很多内容</div>
+            </li>
+            <li class="item">
+                <h4>酒店报表<b>+</b></h4>
+                <div class="info"><img src="pic/2.png"></div>
+            </li>
+            <li class="item">
+                <h4>报表管理<b>+</b></h4>
+                <div class="info">
+                    <ul>
+                        <li class="current"><a _href="/xx" data-title="检票报表"  href="javascript:void(0)">检票报表</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</aside>
+<script type="text/javascript" src="/h-ui/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery.form.min.js"></script>
+<script type="text/javascript" src="/js/home.js"></script>
+<script type="text/javascript">
+    jQuery.Huifold = function (obj, obj_c, speed, obj_type, Event) {
+        if (obj_type == 2) {
+            $(obj + ":first").find("b").html("-");
+            $(obj_c + ":first").show()
+        }
+        $(obj).bind(Event, function () {
+            if ($(this).next().is(":visible")) {
+                if (obj_type == 2) {
+                    return false
+                } else {
+                    $(this).next().slideUp(speed).end().removeClass("selected");
+                    $(this).find("b").html("+")
+                }
+            } else {
+                if (obj_type == 3) {
+                    $(this).next().slideDown(speed).end().addClass("selected");
+                    $(this).find("b").html("-")
+                } else {
+                    $(obj_c).slideUp(speed);
+                    $(obj).removeClass("selected");
+                    $(obj).find("b").html("+");
+                    $(this).next().slideDown(speed).end().addClass("selected");
+                    $(this).find("b").html("-")
+                }
+            }
+        })
+    }
+
+    $(function () {
+        $.Huifold("#Huifold1 .item h4", "#Huifold1 .item .info", "fast", 1, "click"); /*5个参数顺序不可打乱，分别是：相应区,隐藏显示的内容,速度,类型,事件*/
+    });
+
+
+    /*选项卡导航*/
+    $(".Hui-aside").on("click",".menu_dropdown a",function(){
+        if($(this).attr('_href')){
+            var bStop=false;
+            var bStopIndex=0;
+            var _href=$(this).attr('_href');
+            var _titleName=$(this).attr("data-title");
+            var show_navLi=$(document).find("#min_title_list li");
+            show_navLi.each(function() {
+                if($(this).find('span').attr("data-href")==_href){
+                    bStop=true;
+                    bStopIndex=show_navLi.index($(this));
+                    return false;
+                }
+            });
+
+            if(bStop){
+                show_navLi.removeClass("active").eq(bStopIndex).addClass("active");
+            }
+            var _href=$(this).attr('_href');
+            setCookie("third_menu", $(this).attr("data-title"));
+            setCookie("second_menu", $(this).parents("dd").attr("data-title"));
+            if(window.location.hash=="#"+_href){
+                LoadAjaxContent(_href);
+            }else{
+                window.location.hash = _href;
+            }
+        }
+    });
+</script>
+<div class="dislpayArrow"><a class="pngfix" href="javascript:void(0);" onclick="displaynavbar(this)"></a></div>
+<!-- 中间内容显示区域 -->
+<section class="Hui-article-box" style="overflow:auto">
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont"></i>
+        首页 <span class="c-gray en">&gt;</span>
+        <a id="home_second_menu" style="text-decoration:none">报表中心</a> <span class="c-gray en">&gt;</span>
+        <a id="home_third_menu">角色管理</a>
+    </nav>
+    <div id="ajax-main-content">
+        <div class="pd-20">
+            <div class="search_buttons">
+                <form class="datagrid-search">
+                    <div class="table_search">
+                        <input type="text" class="input-text search-input" placeholder="角色名称" name="roleName">
+                        <input type="hidden" name="accType" value="0">
+                                    <span class="select-box search-input" style="width:160px">
+                        <select id="" name="useFlag" class="select">
+                          <option value="">--请选择状态--</option>
+                               <option value="0">停用</option>
+                               <option value="1">启动</option>
+                        </select>
+                        </span>
+                        <button type="submit" class="btn btn-success radius" style="margin-bottom:5px;"> 搜索</button>
+                    </div>
+                </form>
+            </div>
+            <div style="padding-top:5px;padding-bottom:10px;">
+                <span class="btn btn-primary radius datagrid-tool auth-add" data-toggle="add">
+                        <i class="Hui-iconfont"></i> 添加
+                </span>
+                        <span class="btn btn-danger radius datagrid-tool auth-del" data-toggle="del">
+                        <i class="Hui-iconfont"></i> 删除
+                </span>
+            </div>
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+                <div class="top"></div>
+                <table class="table table-border table-bordered table-hover table-bg table-sort datagrid dataTable no-footer"
+                       width="100%" action="/admin/sysRole/grid" keyvalue="id" id="DataTables_Table_0" role="grid"
+                       aria-describedby="DataTables_Table_0_info" style="width: 100%;">
+                    <thead>
+                    <tr class="text-c" role="row">
+                        <th data-options="field:&#39;checkbox&#39;,columnAttr:&#39;checkbox&#39;"
+                            class="select-checkbox sorting_disabled" rowspan="1" colspan="1" style="width: 262px;"
+                            aria-label=""></th>
+                        <th data-options="field:&#39;roleName&#39;,width:100, sortable:true" class="column-left sorting"
+                            tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                            style="width: 262px;" aria-label="角色名称: 以升序排列此列">角色名称
+                        </th>
+                        <th data-options="field:&quot;accType&quot;,width:100,align:&quot;center&quot;,sortable:true,columnAttr:&quot;replace&quot;,option:[{&quot;value&quot;:&quot;管理员&quot;,&quot;key&quot;:&quot;0&quot;},{&quot;value&quot;:&quot;供应商&quot;,&quot;key&quot;:&quot;1&quot;},{&quot;value&quot;:&quot;分销商&quot;,&quot;key&quot;:&quot;3&quot;}]"
+                            class="column-center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1" style="width: 262px;" aria-label="账户类型: 以升序排列此列">账户类型
+                        </th>
+                        <th data-options="field:&quot;useFlag&quot;,width:100,align:&quot;center&quot;, sortable:true,columnAttr:&quot;replace&quot;,option:[{&quot;value&quot;:&quot;停用&quot;,&quot;key&quot;:&quot;0&quot;},{&quot;value&quot;:&quot;启动&quot;,&quot;key&quot;:&quot;1&quot;}]"
+                            class="column-center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1" style="width: 262px;" aria-label="状态: 以升序排列此列">状态
+                        </th>
+                        <th data-options="field:&#39;remark&#39;,width:100, sortable:true" class="column-left sorting"
+                            tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                            style="width: 262px;" aria-label="备注: 以升序排列此列">备注
+                        </th>
+                        <th data-options="field:&#39;operation&#39;, columnAttr:&#39;operation&#39;,formatterType:&#39;insert&#39;,width:100, align:&#39;center&#39;,formatterExtend:function(data, type, row){
+	    			var str=[{&#39;title&#39;:&#39;权限&#39;,&#39;type&#39;:&#39;dialog&#39;,&#39;options&#39;:{&#39;url&#39;:&#39;/admin/sysRole/permission.htm?roleId=&#39;+row[&#39;id&#39;],&#39;title&#39;:&#39;设置权限&#39;,&#39;width&#39;:400}}];
+	    			return str;
+	        		}" class="column-center sorting_disabled" rowspan="1" colspan="1" style="width: 262px;"
+                            aria-label="操作">操作
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td valign="top" colspan="6" class="dataTables_empty">表中数据为空</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="bottom">
+                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">显示第 0 至 0
+                        项结果，共 0 项
+                    </div>
+                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a
+                            class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0"
+                            tabindex="0" id="DataTables_Table_0_previous">上页</a><span></span><a
+                            class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="1"
+                            tabindex="0" id="DataTables_Table_0_next">下页</a></div>
+                    <div class="dataTables_LengthMenu">
+                        <div class="dataTables_length" id="DataTables_Table_0_length"><label>每页 <select
+                                name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> 项</label></div>
+                    </div>
+                    <div class="dataTables_LengthMenu">
+                        <div id="DataTables_Table_0_processing" class="dataTables_processing" style="display: none;">
+                            处理中...
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

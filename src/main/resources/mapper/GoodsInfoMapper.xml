@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pc.huangshan.dao.GoodsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.pc.huangshan.model.GoodsInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="WARES_NAME" jdbcType="VARCHAR" property="waresName" />
+    <result column="MODEL_CODE" jdbcType="VARCHAR" property="modelCode" />
+    <result column="SELLER_ID" jdbcType="INTEGER" property="sellerId" />
+    <result column="SELLER_NAME" jdbcType="VARCHAR" property="sellerName" />
+    <result column="PRICE_SHOW" jdbcType="DECIMAL" property="priceShow" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="STOCK" jdbcType="INTEGER" property="stock" />
+    <result column="ENABLED" jdbcType="CHAR" property="enabled" />
+    <result column="IS_EXPRESS" jdbcType="CHAR" property="isExpress" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="MODIFY_BY" jdbcType="VARCHAR" property="modifyBy" />
+    <result column="DELETED" jdbcType="CHAR" property="deleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pc.huangshan.model.GoodsInfo">
+    <result column="SUMMARY" jdbcType="LONGVARCHAR" property="summary" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, WARES_NAME, MODEL_CODE, SELLER_ID, SELLER_NAME, PRICE_SHOW, PRICE, STOCK, ENABLED, 
+    IS_EXPRESS, CREATE_TIME, CREATE_BY, MODIFY_TIME, MODIFY_BY, DELETED
+  </sql>
+  <sql id="Blob_Column_List">
+    SUMMARY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pc.huangshan.model.GoodsInfo">
+    insert into goods_info (ID, WARES_NAME, MODEL_CODE, 
+      SELLER_ID, SELLER_NAME, PRICE_SHOW, 
+      PRICE, STOCK, ENABLED, 
+      IS_EXPRESS, CREATE_TIME, CREATE_BY, 
+      MODIFY_TIME, MODIFY_BY, DELETED, 
+      SUMMARY)
+    values (#{id,jdbcType=INTEGER}, #{waresName,jdbcType=VARCHAR}, #{modelCode,jdbcType=VARCHAR}, 
+      #{sellerId,jdbcType=INTEGER}, #{sellerName,jdbcType=VARCHAR}, #{priceShow,jdbcType=DECIMAL}, 
+      #{price,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{enabled,jdbcType=CHAR}, 
+      #{isExpress,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=VARCHAR}, #{deleted,jdbcType=CHAR}, 
+      #{summary,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pc.huangshan.model.GoodsInfo">
+    insert into goods_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="waresName != null">
+        WARES_NAME,
+      </if>
+      <if test="modelCode != null">
+        MODEL_CODE,
+      </if>
+      <if test="sellerId != null">
+        SELLER_ID,
+      </if>
+      <if test="sellerName != null">
+        SELLER_NAME,
+      </if>
+      <if test="priceShow != null">
+        PRICE_SHOW,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="stock != null">
+        STOCK,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+      <if test="isExpress != null">
+        IS_EXPRESS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME,
+      </if>
+      <if test="modifyBy != null">
+        MODIFY_BY,
+      </if>
+      <if test="deleted != null">
+        DELETED,
+      </if>
+      <if test="summary != null">
+        SUMMARY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="waresName != null">
+        #{waresName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelCode != null">
+        #{modelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerId != null">
+        #{sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerName != null">
+        #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="priceShow != null">
+        #{priceShow,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="isExpress != null">
+        #{isExpress,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null">
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pc.huangshan.model.GoodsInfo">
+    update goods_info
+    <set>
+      <if test="waresName != null">
+        WARES_NAME = #{waresName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelCode != null">
+        MODEL_CODE = #{modelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerId != null">
+        SELLER_ID = #{sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerName != null">
+        SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="priceShow != null">
+        PRICE_SHOW = #{priceShow,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        STOCK = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        ENABLED = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="isExpress != null">
+        IS_EXPRESS = #{isExpress,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null">
+        MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="summary != null">
+        SUMMARY = #{summary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pc.huangshan.model.GoodsInfo">
+    update goods_info
+    set WARES_NAME = #{waresName,jdbcType=VARCHAR},
+      MODEL_CODE = #{modelCode,jdbcType=VARCHAR},
+      SELLER_ID = #{sellerId,jdbcType=INTEGER},
+      SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      PRICE_SHOW = #{priceShow,jdbcType=DECIMAL},
+      PRICE = #{price,jdbcType=DECIMAL},
+      STOCK = #{stock,jdbcType=INTEGER},
+      ENABLED = #{enabled,jdbcType=CHAR},
+      IS_EXPRESS = #{isExpress,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      DELETED = #{deleted,jdbcType=CHAR},
+      SUMMARY = #{summary,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pc.huangshan.model.GoodsInfo">
+    update goods_info
+    set WARES_NAME = #{waresName,jdbcType=VARCHAR},
+      MODEL_CODE = #{modelCode,jdbcType=VARCHAR},
+      SELLER_ID = #{sellerId,jdbcType=INTEGER},
+      SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      PRICE_SHOW = #{priceShow,jdbcType=DECIMAL},
+      PRICE = #{price,jdbcType=DECIMAL},
+      STOCK = #{stock,jdbcType=INTEGER},
+      ENABLED = #{enabled,jdbcType=CHAR},
+      IS_EXPRESS = #{isExpress,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      DELETED = #{deleted,jdbcType=CHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultType="com.pc.huangshan.model.GoodsInfo">
+    select *  from goods_info
+  </select>
+</mapper>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .abc{ color:#cb2020}
+    </style>
+    <title>黄山旅游官方平台</title>
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <link href="/css/reset-min.css" rel="stylesheet" type="text/css">
+    <link href="/css/manaLogin.css" rel="stylesheet" type="text/css">
+    <script src="/layui/layui.js" type="text/javascript"></script>
+    <script>
+        layui.use(['jquery','form','layer'], function(){
+            var $ =layui.jquery;
+            var form = layui.form;//表单验证
+            var layer= layui.layer;
+            //表单验证（页面自动关联,验证结果绑定在表单）
+            form.verify({
+                username: function(value, item){ //value：表单的值、item：表单的DOM对象 自定义验证规则
+                    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                        return '用户名不能有特殊字符';
+                    }
+                    if(/^\d+\d+\d$/.test(value)){
+                        return '用户名不能全为数字';
+                    }
+
+                } ,
+                userpassword:function(value,item){
+                    if(!/^.{6,12}$/img.test(value)){
+                        return"密码必须位6~12位"
+                    }
+                },
+            });
+            //不想提交，可以监听，使用form.on
+            form.on('submit(login)', function(data){
+                //用ajax时需要注意你的url接口、采用哪一种方式type获取，它的使用的哪种数据类型datatype
+                $.ajax({
+                    url:'/login/checkLogin',
+                    type:'get',
+                    dataType:'json',
+                    data:{
+                        //监听的内容有哪些,你的登陆界面上用户输入的有哪些，就监听那些
+                        username:$('input[name="username"]').val(),
+                        userpassword:$('input[name="userpassword"]').val()
+                    },
+                    beforeSend:function(){
+                        //弹出的lodinng层
+                        layer.load(2,{
+                            shade:[0.5,"#333"]
+                        });
+                    },
+                    success:function(res){
+                        if(res.code == 0){
+                            //res.code == 0,表示用户输入成功，1表示失败
+                            //获取用户输入的内容，存到本地存储，采用sessionStorage是因为用户只需输入一次，不需要保存，用户的体验感较好，也比较安全
+                            // sessionStorage.setItem('admin',JSON.stringify(res.data.admindata));
+                            // //获取用户数据，并存储在本地。
+                            // sessionStorage.setItem('role',JSON.stringify(res.data.roledata));
+                            // sessionStorage.setItem('module',JSON.stringify(res.data.moduledata));
+                            layer.msg("登陆成功",{icon:1})
+                            setTimeout(function(){
+                                //如果输入成功，可以跳到另一个你需要的界面
+                                location.href="/index/home";
+                            },900)
+                        }else{
+                            //不等于0时填出的内容
+                            layer.msg(res.msg)
+                        }
+                    },
+                    error:function(){
+                        //用户输入与接口内容不对应，显示文字
+                        layer.msg("网络繁忙，访问失败")
+                    },
+                    complete:function(){
+                        //关掉loading
+                        layer.closeAll("loading")
+                    }
+                })
+                return false;//不会跳转到网址栏，只会跳转到你要的界面 一定要写。
+            });
+        });
+    </script>
+    <style class="mpa-style-fix ImageGatherer">
+        .FotorFrame{position:fixed!important}
+    </style>
+    <style class="mpa-style-fix SideFunctionPanel">
+        .weui-desktop-online-faq__wrp{top:304px!important;bottom:unset!important}
+        .weui-desktop-online-faq__wrp
+        .weui-desktop-online-faq__switch{width:38px!important}</style>
+    </head>
+<body mpa-version="7.15.6" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
+
+<div id="login-sign" style="background:url(&#39;http://image.huangshan.com.cn/fileupload/20171229/20171229103813jvg3f3.jpg&#39;) no-repeat center 0; width:100%; height:368px;"></div>
+
+<div class="login_form">
+    <form>
+        <div class="login_txt_box bor1 cf"><i class="login_txt_ico1"></i>
+            <input type="text" name="username" placeholder="用户名" id="loginName" value="" class="login_txt">
+        </div>
+        <div class="login_txt_box bor1 cf"><i class="login_txt_ico2"></i>
+            <input type="hidden" name="password" id="password">
+            <input name="userpassword" type="password" placeholder="密码" id="loginPassTemp" value="" autocomplete="off" class="login_txt">
+        </div>
+
+
+        <div class="login_txt_box2 cf">
+            <button type="button"  lay-submit  class="login_Btn login_Btn_bg1 mr10" id="login" lay-filter="login">登录</button>
+            <button type="reset" class="login_Btn login_Btn_bg2"> 重置</button>
+        </div>
+    </form>
+</div>
+<div class="mpa-sc mpa-plugin-article-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-article-gatherer"></div><div class="mpa-sc mpa-plugin-image-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-image-gatherer"></div><div class="mpa-sc mpa-plugin-page-clipper mpa-new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-page-clipper"></div><div class="mpa-sc mpa-plugin-text-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-text-gatherer"></div><div class="mpa-sc mpa-plugin-video-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-video-gatherer"></div><div class="mpa-sc mpa-plugin-side-function-panel mpa-new mpa-rootsc" data-z="110" style="display: block;" id="mpa-rootsc-side-function-panel"></div><div class="mpa-sc mpa-plugin-notifier mpa-new mpa-rootsc" data-z="120" style="display: block;" id="mpa-rootsc-notifier"></div><div class="mpa-sc mpa-plugin-notification-manager mpa-new mpa-rootsc" data-z="130" style="display: block;" id="mpa-rootsc-notification-manager"></div>
+</body>
+</html>

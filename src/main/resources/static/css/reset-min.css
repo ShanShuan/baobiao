@@ -1,0 +1,76 @@
+@charset "utf-8";
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+	margin:0;
+	padding:0;
+}
+body, button, input, select, textarea {
+	font-family: "Microsoft Yahei","Hiragino Sans GB","Helvetica Neue",Helvetica,tahoma,arial,"WenQuanYi Micro Hei",Verdana,sans-serif,"\5B8B\4F53";
+	font-size: 14px;
+    color: #333;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size:100%;
+}
+address, cite, dfn, em, var,i {
+	font-style:normal;
+}
+code, kbd, pre, samp {
+	font-family:courier new, courier, monospace;
+}
+small {
+	font-size:12px;
+}
+ul, ol {
+	list-style:none;
+}
+a {
+	text-decoration:none;
+}
+sup {
+	vertical-align:text-top;
+}
+sub {
+	vertical-align:text-bottom;
+}
+legend {
+	color:#000;
+}
+fieldset, img {
+	border:0;
+}
+button, input, select, textarea {
+	font-size:100%;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+	display:block;
+	margin:0;
+	padding:0;
+}
+mark {
+	background:#ff0;
+}
+.cf:before, .cf:after {
+	content:"";
+	display:table;
+}
+.cf:after {
+	clear:both;
+}
+.cf {
+	zoom:1;
+}
+.clr {
+	clear:both;
+	font-size:0;
+	height:0;
+	line-height:0;
+	overflow:hidden;
+}
+body table, body table tr, body table tr td {
+	font-size:12px;
+}
+html{ -webkit-text-size-adjust: none;overflow-x:hidden;}

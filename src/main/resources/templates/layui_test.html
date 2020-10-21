@@ -1,0 +1,32 @@
+
+<body>
+<link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+<table class="layui-hide" id="test"></table>
+
+
+<script src="/layui/layui.js" charset="utf-8"></script>
+
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#test'
+            ,url:'/goods'
+            ,cellMinWidth: 80
+            ,page: true //开启分页
+            // ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,totalRow: true //开启合计行
+            ,cols: [
+                [
+                {field:'id', title: '主键', sort: true}
+                ,{field:'name', title: '景区名称'}
+                ,{field:'aliasName', title: '景区别名', sort: true}
+                ,{field:'goodsCode', title: '景区编码'}
+                ,{field:'supplyName', title: '供应商名称'}
+                ]
+            ]
+        });
+    });
+</script>
+
+</body>

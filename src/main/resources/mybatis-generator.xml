@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- 本地数据库驱动程序jar包的全路径 -->
+    <classPathEntry location="E:\software\mysql-connector-java-8.0.21.jar"/>
+
+    <context id="context" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true" />
+            <!--其中suppressDate是去掉生成日期那行注释，suppressAllComments是去掉所有的注-->
+        </commentGenerator>
+
+        <!-- 数据库的相关配置 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="admin"/>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 实体类生成的位置 -->
+        <javaModelGenerator targetPackage="com.pc.huangshan.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- *Mapper.xml 文件的位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- Mapper 接口文件的位置 -->
+        <javaClientGenerator targetPackage="com.pc.huangshan.dao" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!--需要进行映射操作的数据库表格信息-->
+<!--        <table tableName="goods_info" domainObjectName="GoodsInfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+<!--        <table tableName="park_info" domainObjectName="ParkInfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <table tableName="user_info" domainObjectName="UserInfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+    </context>
+
+</generatorConfiguration>
