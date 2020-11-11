@@ -1,4 +1,4 @@
-package com.pc.huangshan.dao;
+package com.pc.huangshan.Mapper;
 
 import com.pc.huangshan.model.GoodsInfo;
 import org.apache.ibatis.annotations.Mapper;

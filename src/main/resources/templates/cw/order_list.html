@@ -1,0 +1,267 @@
+<div style="margin: 17px">
+    <div class="search_buttons" >
+        <form class="datagrid-search">
+            <div class="table_search" tyle="margin-left: 25px;margin-top: 10px;">
+                <input placeholder="游玩开始时间" data-options="dateFmt:'yyyy-MM-dd'"
+                       class="input-text search-input Wdate date-widget" name="startTime"/>
+                <input placeholder="游玩结束时间" data-options="dateFmt:'yyyy-MM-dd'"
+                       class="input-text search-input Wdate date-widget" name="endTime"/>
+                <button type="button" name="search" class="btn btn-success radius" style="margin-bottom:5px;"> 查询</button>
+                <button type="button" name="xx" class="btn btn-success radius" style="margin-bottom:5px;"> 导出</button>
+            </div>
+        </form>
+    </div>
+    <style type="text/css">
+        .layui-table-cell {
+            width: auto;
+        }
+    </style>
+    <div id="all">
+        <table id="show" class="layui-table" lay-data="{url:'', cellMinWidth: 80, page: false,toolbar: true}" style="margin: 17px">
+
+        </table>
+    </div>
+</div>
+<script>
+
+
+
+    layui.use('table', function () {
+        var table = layui.table;
+        var layer= layui.layer;
+        $('button[name="search"]').click(function () {
+
+            var st=$('input[name="startTime"]').val();
+            var et=$('input[name="endTime"]').val();
+            var finalStTime='';
+            var finalEtTime='';
+            if(!(st==""||st==null||st==undefined)) {
+                var stTime = new Date(st);
+                var stFullYear = stTime.getFullYear();
+                var stMonth = stTime.getMonth()+1;
+                var stDay = stTime.getDate();
+                finalStTime=stFullYear+'年'+stMonth+'月'+stDay+'日';
+            }
+
+            if(!(et==""||et==null||et==undefined)) {
+                var etTime = new Date(et);
+                var etFullYear = etTime.getFullYear();
+                var etMonth = etTime.getMonth()+1;
+                var etDay = etTime.getDate();
+                if(!(st==""||st==null||st==undefined)){
+                    if(stFullYear===etFullYear){
+                        if(etMonth===stMonth){
+                            finalEtTime=etDay+'日';
+                        }else{
+                            finalEtTime=etMonth+'月'+etDay+'日';
+                        }
+                    }else{
+                        finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                    }
+                }else {
+                    finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                }
+            }
+
+            table.render({
+                elem: '#show'
+                ,url:'/order/list'
+                ,page: true //开启分页
+                // ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                //开启合计行
+                ,where : {
+                    startTime : st,
+                    endTime : et,
+                    title:'订单报表('+finalStTime+'-'+finalEtTime+')'
+                }
+                ,cols: [
+                    [
+                        { title: '订单报表('+finalStTime+'-'+finalEtTime+')',colspan:21,align:'center'}
+                    ]
+                   ,[
+                        {field:'orderType',title:'业务类型'}
+                        ,{field:'orderNo',title:'订单号'}
+                        ,{field:'orderStatus',title:'订单状态'}
+                        ,{field:'payTime',title:'支付时间'}
+                        ,{field:'payType',title:'支付类型'}
+                        ,{field:'orderInfo',title:'产品名称'}
+                        ,{field:'oiPrice',title:'销售单价'}
+                        ,{field:'orderSum',title:'销售价'}
+                        ,{field:'amount',title:'数量'}
+                        ,{field:'syncStatus',title:'同步状态'}
+                        ,{field:'couponSum',title:'优惠金额'}
+                        ,{field:'paySum',title:'支付金额'}
+                        ,{field:'odPrice',title:'结算单价'}
+                        ,{field:'jsSum',title:'结算金额'}
+                        ,{field:'ml',title:'毛利'}
+                        ,{field:'linkName',title:'联系人'}
+                        ,{field:'linkMobile',title:'联系人电话'}
+                        ,{field:'startDate',title:'抵离日期'}
+                        ,{field:'orderGift',title:'礼包内容'}
+                        ,{field:'noteBook',title:'备忘录'}
+                        ,{field:'distributorName',title:'分销商'}
+                    ]
+                ]
+            });
+        });
+
+
+        $('button[name="xx"]').click(function () {
+
+            var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            var st=$('input[name="startTime"]').val();
+            var et=$('input[name="endTime"]').val();
+            var finalStTime='';
+            var finalEtTime='';
+            if(!(st==""||st==null||st==undefined)) {
+                var stTime = new Date(st);
+                var stFullYear = stTime.getFullYear();
+                var stMonth = stTime.getMonth()+1;
+                var stDay = stTime.getDate();
+                finalStTime=stFullYear+'年'+stMonth+'月'+stDay+'日';
+            }
+
+            if(!(et==""||et==null||et==undefined)) {
+                var etTime = new Date(et);
+                var etFullYear = etTime.getFullYear();
+                var etMonth = etTime.getMonth()+1;
+                var etDay = etTime.getDate();
+                if(!(st==""||st==null||st==undefined)){
+                    if(stFullYear===etFullYear){
+                        if(etMonth===stMonth){
+                            finalEtTime=etDay+'日';
+                        }else{
+                            finalEtTime=etMonth+'月'+etDay+'日';
+                        }
+                    }else{
+                        finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                    }
+                }else {
+                    finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                }
+            }
+
+            function down(myurl,name){
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('PUT', myurl+"?name="+name, true);    // 也可以使用POST方式，根据接口
+                xhr.responseType = "blob";  // 返回类型blob
+                // 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
+                xhr.onload = function () {
+                    // 请求完成
+                    // if (this.status === 200) {
+                        // 返回200
+                        var blob = this.response;
+                        console.log(blob);
+                        var reader = new FileReader();
+                        reader.readAsDataURL(blob);  // 转换为base64，可以直接放入a表情href
+                        reader.onload = function (e) {
+                            // 转换完成，创建一个a标签用于下载
+                            var a = document.createElement('a');
+                            a.download = name;
+                            a.href = e.target.result;
+                            document.body.append(a);  // 修复firefox中无法触发click
+                            a.click();
+                            $(a).remove();
+                            layer.close(index);
+                        }
+                    // }
+
+                };
+
+                xhr.ontimeout = function(e) {layer.close(index); };
+                xhr.onerror = function(e) {  layer.close(index);};
+                // 发送ajax请求
+                xhr.send();
+
+
+//                 $.ajax({
+//                     url: myurl,
+//                     type: "PUT",
+//                     data:{name:name},
+//                     success: function(data) {
+//                         var byteArray = new Uint8Array(data);
+//                         var blob = new Blob([byteArray]);
+//
+//                         var url = window.URL || window.webkitURL || window.moxURL
+// // 创建下载链接
+//                         var downloadHref = url.createObjectURL(blob,{type: 'application/octet-stream'});
+// // 创建a标签并为其添加属性
+//                         var downloadLink = document.createElement('a');
+//                         downloadLink.href = downloadHref;
+//                         downloadLink.download ='order.xlsx';
+// // 触发点击事件执行下载
+//                         downloadLink.click();
+//                         // var reader = new FileReader();
+//                         // reader.readAsDataURL(data);
+//                         // reader.onload = function (e) {
+//                         //     var a = document.createElement('a');
+//                         //     a.download = "order.xlsx";
+//                         //     a.href = e.target.result;
+//                         //     document.body.appendChild(a);
+//                         //     a.click();
+//                         //     document.body.removeChild(a);
+//                         // }
+//
+//                             layer.msg('下载成功');
+//                             console.log(data);
+//
+//                     }
+//                 });
+
+                // var form = document.createElement("form");
+                // document.getElementsByTagName('body')[0].appendChild(form);
+                // form.setAttribute('style','display:none');
+                // // form.setAttribute('target',url);
+                // form.setAttribute('action',url);//下载文件的请求路径
+                // form.setAttribute('method','POST')
+                // var input1 = document.createElement('input');
+                // input1.setAttribute('type','hidden');
+                // input1.setAttribute('name','name');
+                // input1.setAttribute('value',name);
+                // form.appendChild(input1);
+                //
+                //
+                // var input2 = document.createElement('input');
+                // input2.setAttribute('type','hidden');
+                // input2.setAttribute('name','_method');
+                // input2.setAttribute('value','PUT');
+                // form.appendChild(input2);
+                // form.submit();
+                // form.remove();
+
+
+
+
+                // var a = document.createElement("a");
+                // a.download = name + ".xls";
+                // a.href = url;
+                // $("body").append(a); // 修复firefox中无法触发click
+                // a.click();
+                // $(a).remove();
+            }
+
+
+            $.ajax({
+                url: "/order/exportTable?startTime="+st+"&endTime="+et+"&title=订单报表("+finalStTime+"-"+finalEtTime+")",
+                type: "POST",
+                success: function(data) {
+                    if(data){
+                        // down( "/order/downLoad?name="+data,"订单列表");
+                        down( "/order/downLoad",data);
+                    }else{
+                        layer.msg('下载失败，请稍后重试');
+                    }
+                },
+                error: function () {
+                    layer.close(index);
+                }
+            });
+
+
+
+
+
+        });
+    });
+</script>

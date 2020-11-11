@@ -122,6 +122,8 @@ function loadHome(content){
 }
 
 
+
+
 // 解析页面组件，并给其添加事件,如datagrid、form
 $.fn.parseHtmlEvent = function (data) {
     var html = $(this);
@@ -147,14 +149,14 @@ $.fn.parseHtmlEvent = function (data) {
             WdatePicker(opt);
         }
     });
-//	    html.find(".date-widget").each(function (i, item) {
-//	    	$(this).click(function(){
-//	    		var opt = {};
-//	    		if($(this).data("options"))	//dateFmt:'yyyy-MM'   日期格式
-//	    			opt = $.parseDateOptions($(this).data("options"));
-//	    		WdatePicker(opt);
-//	    	});
-//	    });
+	    html.find(".date-widget").each(function (i, item) {
+	    	$(this).click(function(){
+	    		var opt = {};
+	    		if($(this).data("options"))	//dateFmt:'yyyy-MM'   日期格式
+	    			opt = $.parseDateOptions($(this).data("options"));
+	    		WdatePicker(opt);
+	    	});
+	    });
 
     //一般的form提交
     html.find(".general-from").each(function () {
@@ -275,3 +277,26 @@ $.fn.parseHtmlEvent = function (data) {
        }});
    });
 };
+
+/*下拉菜单*/
+$(document).on("mouseenter",".dropDown",function(){
+    $(this).addClass("hover");
+});
+$(document).on("mouseleave",".dropDown",function(){
+    $(this).removeClass("hover");
+});
+$(document).on("mouseenter",".dropDown_hover",function(){
+    $(this).addClass("open");
+});
+$(document).on("mouseleave",".dropDown_hover",function(){
+    $(this).removeClass("open");
+});
+$(document).on("click",".dropDown-menu li a",function(){
+    $(".dropDown").removeClass('open');
+});
+$(document).on("mouseenter","ul.mununav li",function(){
+    $(this).addClass("hover");
+});
+$(document).on("mouseleave","ul.mununav li",function(){
+    $(this).removeClass("hover");
+});

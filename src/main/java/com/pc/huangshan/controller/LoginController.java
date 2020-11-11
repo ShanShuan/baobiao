@@ -1,16 +1,9 @@
 package com.pc.huangshan.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.StringUtil;
-import com.pc.huangshan.dao.GoodsInfoMapper;
-import com.pc.huangshan.dao.ParkInfoMapper;
-import com.pc.huangshan.dao.UserInfoMapper;
-import com.pc.huangshan.model.ParkInfo;
+import com.pc.huangshan.Mapper.UserInfoMapper;
 import com.pc.huangshan.model.UserInfo;
 import com.pc.huangshan.utlis.Md5Util;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

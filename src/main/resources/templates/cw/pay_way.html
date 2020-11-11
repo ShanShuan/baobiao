@@ -1,0 +1,210 @@
+<div style="margin: 17px">
+<div class="search_buttons" >
+    <form class="datagrid-search">
+        <div class="table_search" tyle="margin-left: 25px;margin-top: 10px;">
+            <input placeholder="开始时间" data-options="dateFmt:'yyyy-MM-dd'"
+                   class="input-text search-input Wdate date-widget" name="startTime"/>
+            <input placeholder="结束时间" data-options="dateFmt:'yyyy-MM-dd'"
+                   class="input-text search-input Wdate date-widget" name="endTime"/>
+            <button type="button" name="search" class="btn btn-success radius" style="margin-bottom:5px;"> 查询</button>
+            <button type="button" name="xx" class="btn btn-success radius" style="margin-bottom:5px;"> 导出</button>
+        </div>
+    </form>
+</div>
+    <style type="text/css">
+        .layui-table-cell {
+            width: auto;
+        }
+    </style>
+<div id="all">
+<table id="show" class="layui-table" lay-data="{url:'', cellMinWidth: 80, page: false,toolbar: true}" style="margin: 17px">
+
+</table>
+</div>
+</div>
+<script>
+
+
+    layui.use('table', function () {
+
+        var table = layui.table;
+        var st=$('input[name="startTime"]').val();
+        var et=$('input[name="endTime"]').val();
+        var finalStTime='';
+        var finalEtTime='';
+        if(!(st==""||st==null||st==undefined)) {
+            var stTime = new Date(st);
+            var stFullYear = stTime.getFullYear();
+            var stMonth = stTime.getMonth()+1;
+            var stDay = stTime.getDate();
+            finalStTime=stFullYear+'年'+stMonth+'年'+stDay+'日';
+        }
+
+        if(!(et==""||et==null||et==undefined)) {
+            var etTime = new Date(et);
+            var etFullYear = etTime.getFullYear();
+            var etMonth = etTime.getMonth()+1;
+            var etDay = etTime.getDate();
+            if(!(st==""||st==null||st==undefined)){
+                if(stFullYear===etFullYear){
+                    if(etMonth===stMonth){
+                        finalEtTime=stDay+'日';
+                    }else{
+                        finalEtTime=etMonth+'年'+etDay+'日';
+                    }
+                }else{
+                    finalEtTime=etFullYear+'年'+etMonth+'年'+etDay+'日';
+                }
+            }else {
+                finalEtTime=etFullYear+'年'+etMonth+'年'+etDay+'日';
+            }
+        }
+
+        table.render({
+            elem: '#show'
+            ,url:'/cwbb/list'
+            ,page: false //开启分页
+            // ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,totalRow: true //开启合计行
+            ,where : {
+                startTime : st,
+                endTime : et
+            }
+            ,cols: [
+                [
+                    { title: finalStTime+'-'+finalEtTime,colspan:17,align:'center'}
+                ]
+                ,
+                [
+                    { title: '支付方式',colspan:11,align:'center'}
+                    ,{ title: '总交易额累计',colspan:3,align:'center'}
+                    ,{ title: '其中官网常规B2C交易累计额',colspan:3,align:'center'}
+                ]
+                ,[
+                    {field:'supplyName',title: '产品/项目',totalRowText: "小计："}
+                    ,{field:'oTA', title: '授信-OTA',totalRow: true}
+                    ,{field:'zk', title: '授信-直客',totalRow: true}
+                    ,{field:'sxqt', title: '授信-其他',totalRow: true}
+                    ,{field:'byj', title: '备用金',totalRow: true}
+                    ,{field:'zfb', title: '支付宝',totalRow: true}
+                    ,{field:'yl', title: '银联',totalRow: true}
+                    ,{field:'wx', title: '微信',totalRow: true}
+                    ,{field:'zhJf', title: '积分-中行',totalRow: true}
+                    ,{field:'zfzf', title: '积分-奖励',totalRow: true}
+                    ,{field:'xjzf', title: '现金支付',totalRow: true}
+                    // ,{field:'wzd', title: '未指定'}
+                    // ,{field:'yfk', title: '预付款'}
+                    // ,{field:'sd', title: '手动'}
+                    // ,{field:'jh1', title: '建行B2C'}
+                    // ,{field:'jh2', title: '建行B2B'}
+                    // ,{field:'xyzh', title: '信用账户'}
+                    // ,{field:'hs', title: '徽商银行支付'}
+                    // ,{field:'gs', title: '工商银行支付'}
+                    ,{field:'zzf', title: '当期交易额',totalRow: true}
+                    ,{field:'month', title: '月度累计交易额',totalRow: true}
+                    ,{field:'year', title: '年度度累计交易额',totalRow: true}
+                    ,{field:'bTwoCSum', title: '当期交易额',totalRow: true}
+                    ,{field:'bTwoCMonth', title: '月度累计交易额',totalRow: true}
+                    ,{field:'bTwoCYear', title: '年度累计交易额',totalRow: true}
+                ]
+            ]
+        });
+
+        $('button[name="search"]').click(function () {
+
+            var st=$('input[name="startTime"]').val();
+            var et=$('input[name="endTime"]').val();
+            var finalStTime='';
+            var finalEtTime='';
+            if(!(st==""||st==null||st==undefined)) {
+                var stTime = new Date(st);
+                var stFullYear = stTime.getFullYear();
+                var stMonth = stTime.getMonth()+1;
+                var stDay = stTime.getDate();
+                finalStTime=stFullYear+'年'+stMonth+'月'+stDay+'日';
+            }
+
+            if(!(et==""||et==null||et==undefined)) {
+                var etTime = new Date(et);
+                var etFullYear = etTime.getFullYear();
+                var etMonth = etTime.getMonth()+1;
+                var etDay = etTime.getDate();
+                if(!(st==""||st==null||st==undefined)){
+                    if(stFullYear===etFullYear){
+                        if(etMonth===stMonth){
+                            finalEtTime=etDay+'日';
+                        }else{
+                            finalEtTime=etMonth+'月'+etDay+'日';
+                        }
+                    }else{
+                        finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                    }
+                }else {
+                    finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                }
+            }
+
+            table.render({
+                elem: '#show'
+                ,url:'/cwbb/list'
+                ,page: false //开启分页
+                // ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                ,totalRow: true //开启合计行
+                ,where : {
+                    startTime : st,
+                    endTime :et
+                }
+                ,cols: [
+                    [
+                        { title: finalStTime+'-'+finalEtTime,colspan:17,align:'center'}
+                    ]
+                    ,[
+                        { title: '支付方式',colspan:11,align:'center'}
+                        ,{ title: '总交易额累计',colspan:3,align:'center'}
+                        ,{ title: '其中官网常规B2C交易累计额',colspan:3,align:'center'}
+                    ]
+                    ,[
+                        {field:'supplyName',title: '产品/项目' ,totalRowText: "小计："}
+                        ,{field:'oTA', title: '授信-OTA',totalRow: true}
+                        ,{field:'zk', title: '授信-直客',totalRow: true}
+                        ,{field:'sxqt', title: '授信-其他',totalRow: true}
+                        ,{field:'byj', title: '备用金',totalRow: true}
+                        ,{field:'zfb', title: '支付宝',totalRow: true}
+                        ,{field:'yl', title: '银联',totalRow: true}
+                        ,{field:'wx', title: '微信',totalRow: true}
+                        ,{field:'zhJf', title: '积分-中行',totalRow: true}
+                        ,{field:'zfzf', title: '积分-奖励',totalRow: true}
+                        ,{field:'xjzf', title: '现金支付',totalRow: true}
+                        // ,{field:'wzd', title: '未指定'}
+                        // ,{field:'yfk', title: '预付款'}
+                        // ,{field:'sd', title: '手动'}
+                        // ,{field:'jh1', title: '建行B2C'}
+                        // ,{field:'jh2', title: '建行B2B'}
+                        // ,{field:'xyzh', title: '信用账户'}
+                        // ,{field:'hs', title: '徽商银行支付'}
+                        // ,{field:'gs', title: '工商银行支付'}
+                        ,{field:'zzf', title: '当期交易额',totalRow: true}
+                        ,{field:'month', title: '月度累计交易额',totalRow: true}
+                        ,{field:'year', title: '年度度累计交易额',totalRow: true}
+                        ,{field:'bTwoCSum', title: '当期交易额',totalRow: true}
+                        ,{field:'bTwoCMonth', title: '月度累计交易额',totalRow: true}
+                        ,{field:'bTwoCYear', title: '年度累计交易额',totalRow: true}
+                    ]
+                ]
+            });
+        });
+
+
+        $('button[name="xx"]').click(function () {
+            $("#all").table2excel({            //exceltable为存放数据的table
+                // 不被导出的表格行的CSS class类
+                exclude: ".noExl",
+                // 导出的Excel文档的名称
+                name: "表格-" + new Date().getTime(),
+                // Excel文件的名称
+                filename: "表格-" + new Date().getTime() + ".xls",
+                bootstrap: false
+            });
+        });
+    });
+</script>

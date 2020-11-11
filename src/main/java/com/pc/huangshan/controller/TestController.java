@@ -1,8 +1,7 @@
 package com.pc.huangshan.controller;
 
-import com.pc.huangshan.dao.GoodsInfoMapper;
-import com.pc.huangshan.dao.ParkInfoMapper;
-import com.pc.huangshan.model.GoodsInfo;
+import com.pc.huangshan.Mapper.GoodsInfoMapper;
+import com.pc.huangshan.Mapper.ParkInfoMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pc.huangshan.model.ParkInfo;

@@ -1,4 +1,4 @@
-package com.pc.huangshan.dao;
+package com.pc.huangshan.Mapper;
 
 import com.pc.huangshan.model.ParkInfo;
 import com.pc.huangshan.model.ParkInfoWithBLOBs;

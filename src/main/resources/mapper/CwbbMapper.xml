@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pc.huangshan.Mapper.CwbbMapper">
+
+
+    <select id="listByType" resultType="com.pc.huangshan.model.cwbb.Cwbb">
+      select
+        temp.SUPPLY_NAME as supplyName,
+        sum(sums) as zzf
+        ,sum(case temp.pay_type when 6 then sums  else 0 end) as byj
+        ,sum(case when  temp.pay_type  in (2,21,22,23) then sums else 0 end ) as zfb
+        ,sum(case when  temp.pay_type in (4,41,42,43,44,45,46,47,48) then sums  else 0 end)  as yl
+        ,sum(case when  temp.pay_type  in (3,31,32,33,34,35,36,37) then sums else 0 end ) as wx
+        ,sum(case temp.pay_type when 73 then sums  else 0 end ) as zhJf
+        ,sum(case temp.pay_type when 61 then sums  else 0 end)  as zfzf
+        ,sum(case temp.pay_type when 99 then sums  else 0 end)  as xjzf
+--         ,sum(case temp.pay_type when 0 then sums  else 0 end)  as wzd
+--         ,sum(case temp.pay_type when 1 then sums  else 0 end)  as yfk
+--         ,sum(case temp.pay_type when 5 then sums  else 0 end)  as sd
+--         ,sum(case temp.pay_type when 82 then sums  else 0 end ) as jh1
+--         ,sum(case temp.pay_type when 83 then sums  else 0 end ) as jh2
+--         ,sum(case temp.pay_type when 72 then sums  else 0 end)  as zh
+        ,sum(case temp.pay_type when 9 then sums  else 0 end ) as xyzh
+--         ,sum(case temp.pay_type when 10 then sums  else 0 end ) as hs
+--         ,sum(case temp.pay_type when 11 then sums  else 0 end)  as gs
+      from (
+            select
+            sum(od.PRICE*oc.CHECK_NUM) as sums,
+            od.SUPPLY_NAME,
+            oi.pay_type
+            FROM
+            order_info oi
+            INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+            join order_check_log oc on od.ORDER_DETAIL_NO = oc.ORDER_DETAIL_NO
+            WHERE
+            oi.DELETED = 'F'
+            AND od.DELETED = 'F'
+            AND oc.DELETED ='F'
+            and oc.CHECK_TIME >= #{startTime}and oc.CHECK_TIME &lt;=#{endTime}
+            and oi.ORDER_TYPE=#{type}
+            and oi.PAY_TYPE!=-1
+            GROUP BY od.SUPPLY_NAME,oi.pay_type
+        ) temp  group by temp.SUPPLY_NAME
+  </select>
+
+    <select id="listBySupplyNames" resultType="com.pc.huangshan.model.cwbb.Cwbb">
+ select
+        temp.SUPPLY_NAME as supplyName,
+        sum(sums) as zzf
+        ,sum(case temp.pay_type when 6 then sums  else 0 end) as byj
+        ,sum(case when  temp.pay_type  in (2,21,22,23) then sums else 0 end ) as zfb
+        ,sum(case when  temp.pay_type in (4,41,42,43,44,45,46,47,48) then sums  else 0 end)  as yl
+        ,sum(case when  temp.pay_type  in (3,31,32,33,34,35,36,37) then sums else 0 end ) as wx
+        ,sum(case temp.pay_type when 73 then sums  else 0 end ) as zhJf
+        ,sum(case temp.pay_type when 61 then sums  else 0 end)  as zfzf
+        ,sum(case temp.pay_type when 99 then sums  else 0 end)  as xjzf
+        ,sum(case temp.pay_type when 0 then sums  else 0 end)  as wzd
+        ,sum(case temp.pay_type when 1 then sums  else 0 end)  as yfk
+        ,sum(case temp.pay_type when 5 then sums  else 0 end)  as sd
+        ,sum(case temp.pay_type when 82 then sums  else 0 end ) as jh1
+        ,sum(case temp.pay_type when 83 then sums  else 0 end ) as jh2
+        ,sum(case temp.pay_type when 72 then sums  else 0 end)  as zh
+        ,sum(case temp.pay_type when 9 then sums  else 0 end ) as xyzh
+        ,sum(case temp.pay_type when 10 then sums  else 0 end ) as hs
+        ,sum(case temp.pay_type when 11 then sums  else 0 end)  as gs
+      from (
+            select
+            sum(od.PRICE*oc.CHECK_NUM) as sums,
+            od.SUPPLY_NAME,
+            oi.pay_type
+            FROM
+            order_info oi
+            INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+            join order_check_log oc on od.ORDER_DETAIL_NO = oc.ORDER_DETAIL_NO
+            WHERE
+            oi.DELETED = 'F'
+            AND od.DELETED = 'F'
+            AND oc.DELETED ='F'
+            and oc.CHECK_TIME >= #{startTime}and oc.CHECK_TIME &lt;=#{endTime}
+            and od.SUPPLY_NAME in  (<foreach collection="supplyNames" item="name" separator=",">#{name}</foreach>)
+            and oi.PAY_TYPE!=-1
+            GROUP BY od.SUPPLY_NAME,oi.pay_type
+        ) temp  group by temp.SUPPLY_NAME
+
+    </select>
+
+
+  <select id="listTjType" resultType="com.pc.huangshan.model.cwbb.CwTj">
+    select
+      sum(od.PRICE*oc.CHECK_NUM) as totalSum,
+      od.SUPPLY_NAME as supplyName
+      FROM
+      order_info oi
+      INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+      join order_check_log oc on od.ORDER_DETAIL_NO = oc.ORDER_DETAIL_NO
+    WHERE
+      oi.DELETED = 'F'
+      AND od.DELETED = 'F'
+      AND oc.DELETED ='F'
+      and oi.ORDER_TYPE=#{type}
+      and oc.CHECK_TIME >= #{startTime}and oc.CHECK_TIME &lt;=#{endTime}
+    GROUP BY od.SUPPLY_NAME
+  </select>
+
+
+    <select id="listTjBySupplyNames" resultType="com.pc.huangshan.model.cwbb.CwTj">
+        select
+      sum(od.PRICE*oc.CHECK_NUM) as totalSum,
+      od.SUPPLY_NAME as supplyName
+      FROM
+      order_info oi
+      INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+      join order_check_log oc on od.ORDER_DETAIL_NO = oc.ORDER_DETAIL_NO
+    WHERE
+      oi.DELETED = 'F'
+      AND od.DELETED = 'F'
+      AND oc.DELETED ='F'
+      and od.SUPPLY_NAME in   (<foreach collection="supplyNames" item="name" separator=",">#{name}</foreach>)
+      and oc.CHECK_TIME >= #{startTime}and oc.CHECK_TIME &lt;=#{endTime}
+     GROUP BY od.SUPPLY_NAME
+    </select>
+
+  <select id="listBtCType" resultType="com.pc.huangshan.model.cwbb.CwTj">
+    select
+    sum(od.PRICE*oc.CHECK_NUM) as totalSum,
+    od.SUPPLY_NAME as supplyName
+    FROM
+    order_info oi
+    INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+    join order_check_log oc on od.ORDER_DETAIL_NO = oc.ORDER_DETAIL_NO
+    WHERE
+    oi.DELETED = 'F'
+    AND od.DELETED = 'F'
+    AND oc.DELETED ='F'
+    and oi.ORDER_TYPE=#{type}
+    and oc.CHECK_TIME >= #{startTime}and oc.CHECK_TIME &lt;=#{endTime}
+    and oi.DISTRIBUTOR_ID=1
+    GROUP BY od.SUPPLY_NAME
+  </select>
+
+    <select id="listBtCBySupplyNames" resultType="com.pc.huangshan.model.cwbb.CwTj">
+select
+    sum(od.PRICE*oc.CHECK_NUM) as totalSum,
+    od.SUPPLY_NAME as supplyName
+    FROM
+    order_info oi
+    INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+    join order_check_log oc on od.ORDER_DETAIL_NO = oc.ORDER_DETAIL_NO
+    WHERE
+    oi.DELETED = 'F'
+    AND od.DELETED = 'F'
+    AND oc.DELETED ='F'
+    and od.SUPPLY_NAME in   (<foreach collection="supplyNames" item="name" separator=",">#{name}</foreach>)
+    and oc.CHECK_TIME >= #{startTime}and oc.CHECK_TIME &lt;=#{endTime}
+    and oi.DISTRIBUTOR_ID=1
+    GROUP BY od.SUPPLY_NAME
+    </select>
+
+  <select id="selectOTAId" resultType="java.lang.Integer">
+        select id  from user_distributor  where id=#{parentId} or PARENT_ID = #{parentId} and DELETED = 'F'
+  </select>
+  <select id="selectZkId" resultType="java.lang.Integer">
+    select id  from user_distributor  where id=325  or PARENT_ID =325 or id=312 or PARENT_ID=312 and DELETED = 'F'
+  </select>
+  <select id="selectAllDistributorId" resultType="java.lang.Integer">
+    select id  from user_distributor where DELETED = 'F'
+  </select>
+  <select id="listSxZf" resultType="com.pc.huangshan.model.cwbb.CwTj">
+    select
+      sum(od.PRICE*oc.CHECK_NUM) as totalSum,
+      od.SUPPLY_NAME as supplyName
+    FROM
+        order_info oi
+        INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+        join order_check_log oc on od.ORDER_DETAIL_NO = oc.ORDER_DETAIL_NO
+    WHERE
+      oi.DELETED = 'F'
+      AND od.DELETED = 'F'
+      AND oc.DELETED ='F'
+      and oi.pay_type='9'
+      and oi.ORDER_TYPE=#{type}
+      and oc.CHECK_TIME >= #{startTime}and oc.CHECK_TIME &lt;=#{endTime}
+      and oi.DISTRIBUTOR_ID in
+    (<foreach collection="distrubitId" item="id" separator=",">#{id}</foreach>)
+    GROUP BY od.SUPPLY_NAME
+  </select>
+    <select id="listSxZfBySupplyNames" resultType="com.pc.huangshan.model.cwbb.CwTj">
+        select
+        sum(od.PRICE*oc.CHECK_NUM) as totalSum,
+        od.SUPPLY_NAME as supplyName
+        FROM
+        order_info oi
+        INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+        join order_check_log oc on od.ORDER_DETAIL_NO = oc.ORDER_DETAIL_NO
+        WHERE
+        oi.DELETED = 'F'
+        AND od.DELETED = 'F'
+        AND oc.DELETED ='F'
+        and oi.pay_type='9'
+        and od.SUPPLY_NAME in   (<foreach collection="supplyNames" item="name" separator=",">#{name}</foreach>)
+        and oc.CHECK_TIME >= #{startTime}and oc.CHECK_TIME &lt;=#{endTime}
+        and oi.DISTRIBUTOR_ID in
+        (<foreach collection="distrubitId" item="id" separator=",">#{id}</foreach>)
+        GROUP BY od.SUPPLY_NAME
+    </select>
+
+
+
+</mapper>

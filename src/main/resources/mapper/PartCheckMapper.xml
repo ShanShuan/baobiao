@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pc.huangshan.Mapper.PartCheckMapper">
+
+
+    <select id="list" resultType="com.pc.huangshan.model.cwbb.PartCheckDO">
+        select
+        oi.ORDER_NO as orderNo
+        ,oi.SUPPLY_NAME as supplyName
+        ,oi.START_TIME as startTime
+        ,od.AMOUNT
+        ,od.LEFT_AMOUNT as leftAmount
+        ,od.CHECK_AMOUNT as checkAmount
+        ,od.REFUND_AMOUNT as refundAmount
+        ,od.PRICE
+        ,od.ORDER_INFO as orderInfo
+        FROM
+        order_info oi
+        INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+        WHERE
+        oi.DELETED = 'F'
+        AND od.DELETED = 'F'
+        and od.LEFT_AMOUNT>0
+        and od.CHECK_AMOUNT>0
+        and od.PRICE>0
+        <if test="orderNo!=null and orderNo!=''">
+            and oi.ORDER_NO = #{orderNo}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and od.START_DATE >= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and od.START_DATE &lt;= #{endTime}
+        </if>
+        and od.SUPPLY_ID=1
+        and oi.PAY_STATUS='3'
+        order by oi.START_TIME asc
+    </select>
+    <select id="listStatistics" resultType="com.pc.huangshan.model.cwbb.PartCheckStatisticsDO">
+        select  pt.MODEL_NAME as modelName,
+        od.PRICE,
+        sum(od.AMOUNT) as AMOUNT,
+        sum(od.CHECK_AMOUNT) as checkAmount,
+        sum(od.LEFT_AMOUNT) as leftAmount,
+        sum(case  when DATE_SUB(now(),INTERVAL 8 DAY)>=od.START_DATE  then od.LEFT_AMOUNT else 0 end ) as sevenUncheck,
+        sum(case when DATE_SUB(now(),INTERVAL 8 DAY)&lt;od.START_DATE  then od.LEFT_AMOUNT else 0 end ) as otherUncheck
+        FROM
+        order_info oi
+        INNER JOIN order_detail od ON oi.ID = od.ORDER_ID
+        join park_ticket pt on od.MODEL_ID=pt.id
+        WHERE
+        oi.DELETED = 'F'
+        AND od.DELETED = 'F'
+        and od.LEFT_AMOUNT>0
+        and od.CHECK_AMOUNT>0
+        and od.PRICE>0
+        and od.SUPPLY_ID=1
+        and oi.PAY_STATUS='3'
+        <if test="startTime!=null and startTime!=''">
+            and od.START_DATE >= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and od.START_DATE &lt;= #{endTime}
+        </if>
+        group by pt.MODEL_NAME
+    </select>
+</mapper>

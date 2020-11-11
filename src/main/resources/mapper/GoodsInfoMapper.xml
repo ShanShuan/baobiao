@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pc.huangshan.dao.GoodsInfoMapper">
+<mapper namespace="com.pc.huangshan.Mapper.GoodsInfoMapper">
   <resultMap id="BaseResultMap" type="com.pc.huangshan.model.GoodsInfo">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="WARES_NAME" jdbcType="VARCHAR" property="waresName" />

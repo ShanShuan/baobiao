@@ -1,0 +1,80 @@
+<div style="margin: 17px">
+<div class="search_buttons" >
+    <form class="datagrid-search">
+        <div class="table_search" tyle="margin-left: 25px;margin-top: 10px;">
+            <input placeholder="开始时间" data-options="dateFmt:'yyyy-MM-dd'"
+                   class="input-text search-input Wdate date-widget" name="startTime"/>
+            <input placeholder="结束时间" data-options="dateFmt:'yyyy-MM-dd'"
+                   class="input-text search-input Wdate date-widget" name="endTime"/>
+            <input placeholder="订单号" name="orderNo"/>
+            <button type="button" name="search" class="btn btn-success radius" style="margin-bottom:5px;"> 查询</button>
+        </div>
+    </form>
+</div>
+    <style type="text/css">
+        .layui-table-cell {
+            width: auto;
+        }
+    </style>
+<div id="all">
+    <table id="show" class="layui-table" lay-data="{url:'', cellMinWidth: 80, page: false,toolbar: true}" style="margin: 17px">
+    </table>
+</div>
+</div>
+<script>
+
+
+    layui.use('table', function () {
+
+        var table = layui.table;
+        table.render({
+            elem: '#show'
+            , url: '/part_check/list'
+            , page: true //开启分页
+            // ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            , where: {
+                startTime: $('input[name="startTime"]').val(),
+                endTime: $('input[name="endTime"]').val(),
+                orderNo: $('input[name="orderNo"]').val()
+            }
+            , cols: [
+                [
+                    {field: 'orderNo', title: '订单号'}
+                    , {field: 'orderInfo', title: '订单信息'}
+                    , {field: 'startTime', title: '游玩时间'}
+                    , {field: 'amount', title: '订单总数'}
+                    , {field: 'checkAmount', title: '检票数'}
+                    , {field: 'leftAmount', title: '剩余检票数'}
+                    , {field: 'refundAmount', title: '退票数'}
+                    , {field: 'price', title: '价格'}
+                ]
+            ]
+        });
+
+        $('button[name="search"]').click(function () {
+
+            table.render({
+                elem: '#show'
+                , url: '/part_check/list'
+                , page: true //开启分页
+                , where: {
+                    startTime: $('input[name="startTime"]').val(),
+                    endTime: $('input[name="endTime"]').val(),
+                    orderNo: $('input[name="orderNo"]').val()
+                }
+                , cols: [
+                    [
+                        {field: 'orderNo', title: '订单号'}
+                        , {field: 'orderInfo', title: '订单信息'}
+                        , {field: 'startTime', title: '游玩时间'}
+                        , {field: 'amount', title: '订单总数'}
+                        , {field: 'checkAmount', title: '检票数'}
+                        , {field: 'leftAmount', title: '剩余检票数'}
+                        , {field: 'refundAmount', title: '退票数'}
+                        , {field: 'price', title: '价格'}
+                    ]
+                ]
+            });
+        });
+    });
+</script>

@@ -1,0 +1,171 @@
+<div style="margin: 17px">
+<div class="search_buttons" >
+    <form class="datagrid-search">
+        <div class="table_search" tyle="margin-left: 25px;margin-top: 10px;">
+            <input placeholder="开始时间" data-options="dateFmt:'yyyy-MM-dd'"
+                   class="input-text search-input Wdate date-widget" name="startTime"/>
+            <input placeholder="结束时间" data-options="dateFmt:'yyyy-MM-dd'"
+                   class="input-text search-input Wdate date-widget" name="endTime"/>
+            <button type="button" name="search" class="btn btn-success radius" style="margin-bottom:5px;"> 查询</button>
+            <button type="button" name="xx" class="btn btn-success radius" style="margin-bottom:5px;"> 导出</button>
+        </div>
+    </form>
+</div>
+    <style type="text/css">
+        .layui-table-cell {
+            width: auto;
+        }
+    </style>
+<div id="all">
+<table id="show" class="layui-table" lay-data="{url:'', cellMinWidth: 80, page: false,toolbar: true}" style="margin: 17px">
+
+</table>
+</div>
+</div>
+<script>
+
+
+    layui.use('table', function () {
+
+        var table = layui.table;
+        var st=$('input[name="startTime"]').val();
+        var et=$('input[name="endTime"]').val();
+        var finalStTime='';
+        var finalEtTime='';
+        if(!(st==""||st==null||st==undefined)) {
+            var stTime = new Date(st);
+            var stFullYear = stTime.getFullYear();
+            var stMonth = stTime.getMonth()+1;
+            var stDay = stTime.getDate();
+            finalStTime=stFullYear+'年'+stMonth+'年'+stDay+'日';
+        }
+
+        if(!(et==""||et==null||et==undefined)) {
+            var etTime = new Date(et);
+            var etFullYear = etTime.getFullYear();
+            var etMonth = etTime.getMonth()+1;
+            var etDay = etTime.getDate();
+            if(!(st==""||st==null||st==undefined)){
+                if(stFullYear===etFullYear){
+                    if(etMonth===stMonth){
+                        finalEtTime=stDay+'日';
+                    }else{
+                        finalEtTime=etMonth+'年'+etDay+'日';
+                    }
+                }else{
+                    finalEtTime=etFullYear+'年'+etMonth+'年'+etDay+'日';
+                }
+            }else {
+                finalEtTime=etFullYear+'年'+etMonth+'年'+etDay+'日';
+            }
+        }
+
+        table.render({
+            elem: '#show'
+            ,url:'/part_check/listStatistics'
+            ,page: false //开启分页
+            // ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+             //开启合计行
+            ,where : {
+                startTime : st,
+                endTime : et
+            }
+            ,cols: [
+                [
+                    { title: '智慧公司月度票务情况表（'+finalStTime+'-'+finalEtTime+')',colspan:17,align:'center'}
+                ]
+                ,
+                [
+                    { title: '月度预订',colspan:4,align:'center'}
+                    ,{ title: '未检数量',colspan:2,align:'center'}
+                ]
+                ,[
+                    {field:'modelName',title: '票种'}
+                    ,{field:'price', title: '单价'}
+                    ,{field:'amount', title: '数量'}
+                    ,{field:'checkAmount', title: '已检数量'}
+                    ,{field:'sevenUncheck', title: '七日未检'}
+                    ,{field:'otherUncheck', title: '其他未检'}
+                ]
+            ]
+        });
+
+        $('button[name="search"]').click(function () {
+
+            var st=$('input[name="startTime"]').val();
+            var et=$('input[name="endTime"]').val();
+            var finalStTime='';
+            var finalEtTime='';
+            if(!(st==""||st==null||st==undefined)) {
+                var stTime = new Date(st);
+                var stFullYear = stTime.getFullYear();
+                var stMonth = stTime.getMonth()+1;
+                var stDay = stTime.getDate();
+                finalStTime=stFullYear+'年'+stMonth+'月'+stDay+'日';
+            }
+
+            if(!(et==""||et==null||et==undefined)) {
+                var etTime = new Date(et);
+                var etFullYear = etTime.getFullYear();
+                var etMonth = etTime.getMonth()+1;
+                var etDay = etTime.getDate();
+                if(!(st==""||st==null||st==undefined)){
+                    if(stFullYear===etFullYear){
+                        if(etMonth===stMonth){
+                            finalEtTime=etDay+'日';
+                        }else{
+                            finalEtTime=etMonth+'月'+etDay+'日';
+                        }
+                    }else{
+                        finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                    }
+                }else {
+                    finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                }
+            }
+
+            table.render({
+                elem: '#show'
+                ,url:'/part_check/listStatistics'
+                ,page: false //开启分页
+                // ,toolbar: 'true' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                 //开启合计行
+                ,where : {
+                    startTime : st,
+                    endTime : et
+                }
+                ,cols: [
+                    [
+                        { title: '智慧公司月度票务情况表（'+finalStTime+'-'+finalEtTime+')',colspan:17,align:'center'}
+                    ]
+                    ,
+                    [
+                        { title: '月度预订',colspan:4,align:'center'}
+                        ,{ title: '未检数量',colspan:2,align:'center'}
+                    ]
+                    ,[
+                        {field:'modelName',title: '票种'}
+                        ,{field:'price', title: '单价'}
+                        ,{field:'amount', title: '数量'}
+                        ,{field:'checkAmount', title: '已检数量'}
+                        ,{field:'sevenUncheck', title: '七日未检'}
+                        ,{field:'otherUncheck', title: '其他未检'}
+                    ]
+                ]
+            });
+        });
+
+
+        $('button[name="xx"]').click(function () {
+            $("#all").table2excel({            //exceltable为存放数据的table
+                // 不被导出的表格行的CSS class类
+                exclude: ".noExl",
+                // 导出的Excel文档的名称
+                name: "表格-" + new Date().getTime(),
+                // Excel文件的名称
+                filename: "表格-" + new Date().getTime() + ".xls",
+                bootstrap: false
+            });
+        });
+    });
+</script>
