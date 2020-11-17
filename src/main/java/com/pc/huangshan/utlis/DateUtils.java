@@ -61,8 +61,6 @@ public class DateUtils {
         }
     }
 
-
-
     /**
      * 获取传入时间的  **一月一号
      * @param dateString
@@ -78,7 +76,7 @@ public class DateUtils {
             int year = calendar.get(Calendar.YEAR);
             Calendar result=Calendar.getInstance();
             result.set(Calendar.YEAR,year);
-            result.set(Calendar.MONDAY,1);
+            result.set(Calendar.MONDAY,0);
             result.set(Calendar.DAY_OF_MONTH,1);
             Date time = result.getTime();
             return sdf.format(time);
@@ -105,7 +103,7 @@ public class DateUtils {
             int year = calendar.get(Calendar.YEAR);
             Calendar result=Calendar.getInstance();
             result.set(Calendar.YEAR,year);
-            result.set(Calendar.MONDAY,12);
+            result.set(Calendar.MONDAY,11);
             result.set(Calendar.DAY_OF_MONTH,31);
             Date time = result.getTime();
             return sdf.format(time);

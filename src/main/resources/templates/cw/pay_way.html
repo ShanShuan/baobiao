@@ -32,9 +32,10 @@
         var et=$('input[name="endTime"]').val();
         var finalStTime='';
         var finalEtTime='';
+        var stFullYear ='';
         if(!(st==""||st==null||st==undefined)) {
             var stTime = new Date(st);
-            var stFullYear = stTime.getFullYear();
+            stFullYear=stTime.getFullYear();
             var stMonth = stTime.getMonth()+1;
             var stDay = stTime.getDate();
             finalStTime=stFullYear+'年'+stMonth+'年'+stDay+'日';
@@ -72,17 +73,21 @@
             }
             ,cols: [
                 [
-                    { title: finalStTime+'-'+finalEtTime,colspan:17,align:'center'}
+                    { title: '智慧旅游公司'+stFullYear+'年交易报表',colspan:18,align:'center'}
                 ]
                 ,
                 [
-                    { title: '支付方式',colspan:11,align:'center'}
+                    { title: finalStTime+'-'+finalEtTime,colspan:18,align:'center'}
+                ]
+                ,
+                [
+                    { title: '支付方式',colspan:12,align:'center'}
                     ,{ title: '总交易额累计',colspan:3,align:'center'}
                     ,{ title: '其中官网常规B2C交易累计额',colspan:3,align:'center'}
                 ]
                 ,[
                     {field:'supplyName',title: '产品/项目',totalRowText: "小计："}
-                    ,{field:'oTA', title: '授信-OTA',totalRow: true}
+                    ,{field:'ota', title: '授信-OTA',totalRow: true}
                     ,{field:'zk', title: '授信-直客',totalRow: true}
                     ,{field:'sxqt', title: '授信-其他',totalRow: true}
                     ,{field:'byj', title: '备用金',totalRow: true}
@@ -92,6 +97,7 @@
                     ,{field:'zhJf', title: '积分-中行',totalRow: true}
                     ,{field:'zfzf', title: '积分-奖励',totalRow: true}
                     ,{field:'xjzf', title: '现金支付',totalRow: true}
+                    ,{field:'jhnq', title: '建行内嵌支付',totalRow: true}
                     // ,{field:'wzd', title: '未指定'}
                     // ,{field:'yfk', title: '预付款'}
                     // ,{field:'sd', title: '手动'}
@@ -103,9 +109,9 @@
                     ,{field:'zzf', title: '当期交易额',totalRow: true}
                     ,{field:'month', title: '月度累计交易额',totalRow: true}
                     ,{field:'year', title: '年度度累计交易额',totalRow: true}
-                    ,{field:'bTwoCSum', title: '当期交易额',totalRow: true}
-                    ,{field:'bTwoCMonth', title: '月度累计交易额',totalRow: true}
-                    ,{field:'bTwoCYear', title: '年度累计交易额',totalRow: true}
+                    ,{field:'btwocsum', title: '当期交易额',totalRow: true}
+                    ,{field:'btwocmonth', title: '月度累计交易额',totalRow: true}
+                    ,{field:'btwocyear', title: '年度累计交易额',totalRow: true}
                 ]
             ]
         });
@@ -116,9 +122,11 @@
             var et=$('input[name="endTime"]').val();
             var finalStTime='';
             var finalEtTime='';
+            var stFullYear='';
             if(!(st==""||st==null||st==undefined)) {
+                stFullYear
                 var stTime = new Date(st);
-                var stFullYear = stTime.getFullYear();
+                 stFullYear = stTime.getFullYear();
                 var stMonth = stTime.getMonth()+1;
                 var stDay = stTime.getDate();
                 finalStTime=stFullYear+'年'+stMonth+'月'+stDay+'日';
@@ -156,16 +164,20 @@
                 }
                 ,cols: [
                     [
-                        { title: finalStTime+'-'+finalEtTime,colspan:17,align:'center'}
+                        { title: '智慧旅游公司'+stFullYear+'年交易报表',colspan:18,align:'center'}
+                    ]
+                    ,
+                    [
+                        { title: finalStTime+'-'+finalEtTime,colspan:18,align:'center'}
                     ]
                     ,[
-                        { title: '支付方式',colspan:11,align:'center'}
+                        { title: '支付方式',colspan:12,align:'center'}
                         ,{ title: '总交易额累计',colspan:3,align:'center'}
                         ,{ title: '其中官网常规B2C交易累计额',colspan:3,align:'center'}
                     ]
                     ,[
                         {field:'supplyName',title: '产品/项目' ,totalRowText: "小计："}
-                        ,{field:'oTA', title: '授信-OTA',totalRow: true}
+                        ,{field:'ota', title: '授信-OTA',totalRow: true}
                         ,{field:'zk', title: '授信-直客',totalRow: true}
                         ,{field:'sxqt', title: '授信-其他',totalRow: true}
                         ,{field:'byj', title: '备用金',totalRow: true}
@@ -175,6 +187,7 @@
                         ,{field:'zhJf', title: '积分-中行',totalRow: true}
                         ,{field:'zfzf', title: '积分-奖励',totalRow: true}
                         ,{field:'xjzf', title: '现金支付',totalRow: true}
+                        ,{field:'jhnq', title: '建行内嵌支付',totalRow: true}
                         // ,{field:'wzd', title: '未指定'}
                         // ,{field:'yfk', title: '预付款'}
                         // ,{field:'sd', title: '手动'}
@@ -186,9 +199,9 @@
                         ,{field:'zzf', title: '当期交易额',totalRow: true}
                         ,{field:'month', title: '月度累计交易额',totalRow: true}
                         ,{field:'year', title: '年度度累计交易额',totalRow: true}
-                        ,{field:'bTwoCSum', title: '当期交易额',totalRow: true}
-                        ,{field:'bTwoCMonth', title: '月度累计交易额',totalRow: true}
-                        ,{field:'bTwoCYear', title: '年度累计交易额',totalRow: true}
+                        ,{field:'btwocsum', title: '当期交易额',totalRow: true}
+                        ,{field:'btwocmonth', title: '月度累计交易额',totalRow: true}
+                        ,{field:'btwocyear', title: '年度累计交易额',totalRow: true}
                     ]
                 ]
             });

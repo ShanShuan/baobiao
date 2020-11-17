@@ -148,8 +148,8 @@ public class CwbbController {
         String end=et+" 23:59:59";
         String ys = DateUtils.getYearFirstDateByDate(endTime, "yyyy-MM-dd");
         String yearStart = ys+" 00:00:00";
-        String ye = DateUtils.getYearLastDateByDate(endTime, "yyyy-MM-dd");
-        String yearEnd = ye+" 23:59:59";
+//        String ye = DateUtils.getYearLastDateByDate(endTime, "yyyy-MM-dd");
+        String yearEnd = endTime+" 23:59:59";
         List<CwTj> yearcwTjs =cwbbMapper.listTjType(yearStart, yearEnd, type);//总额年度统计
 
 
@@ -294,7 +294,7 @@ public class CwbbController {
                 CwTj cwTj = dqBtc.get(j);
                 if(supplyName.equals(cwTj.getSupplyName())){
                     Double totalSum = cwTj.getTotalSum();
-                    cwbb.setbTwoCSum(totalSum);
+                    cwbb.setBtwocsum(totalSum);
                 }
             }
 
@@ -302,14 +302,14 @@ public class CwbbController {
                 CwTj cwTj = monthBtc.get(j);
                 if(supplyName.equals(cwTj.getSupplyName())){
                     Double totalSum = cwTj.getTotalSum();
-                    cwbb.setbTwoCMonth(totalSum);
+                    cwbb.setBtwocmonth(totalSum);
                 }
             }
             for (int j = 0; j < yearBtc.size(); j++) {
                 CwTj cwTj = yearBtc.get(j);
                 if(supplyName.equals(cwTj.getSupplyName())){
                     Double totalSum = cwTj.getTotalSum();
-                    cwbb.setbTwoCYear(totalSum);
+                    cwbb.setBtwocyear(totalSum);
                 }
             }
 
@@ -318,7 +318,7 @@ public class CwbbController {
                 CwTj cwTj = listOtA.get(j);
                 if(supplyName.equals(cwTj.getSupplyName())){
                     Double totalSum = cwTj.getTotalSum();
-                    cwbb.setoTA(totalSum);
+                    cwbb.setOTA(totalSum);
                 }
             }
             for (int j = 0; j < zk.size(); j++) {
@@ -536,7 +536,7 @@ public class CwbbController {
                 CwTj cwTj = dqBtc.get(j);
                 if(supplyName.equals(cwTj.getSupplyName())){
                     Double totalSum = cwTj.getTotalSum();
-                    cwbb.setbTwoCSum(totalSum);
+                    cwbb.setBtwocsum(totalSum);
                 }
             }
 
@@ -544,14 +544,14 @@ public class CwbbController {
                 CwTj cwTj = monthBtc.get(j);
                 if(supplyName.equals(cwTj.getSupplyName())){
                     Double totalSum = cwTj.getTotalSum();
-                    cwbb.setbTwoCMonth(totalSum);
+                    cwbb.setBtwocmonth(totalSum);
                 }
             }
             for (int j = 0; j < yearBtc.size(); j++) {
                 CwTj cwTj = yearBtc.get(j);
                 if(supplyName.equals(cwTj.getSupplyName())){
                     Double totalSum = cwTj.getTotalSum();
-                    cwbb.setbTwoCYear(totalSum);
+                    cwbb.setBtwocyear(totalSum);
                 }
             }
 
@@ -560,7 +560,7 @@ public class CwbbController {
                 CwTj cwTj = listOtA.get(j);
                 if(supplyName.equals(cwTj.getSupplyName())){
                     Double totalSum = cwTj.getTotalSum();
-                    cwbb.setoTA(totalSum);
+                    cwbb.setOTA(totalSum);
                 }
             }
             for (int j = 0; j < zk.size(); j++) {

@@ -1,10 +1,14 @@
 package com.pc.huangshan.model.cwbb;
 
 import com.pc.huangshan.common.emnu.TicketSorceEnum;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 财务报表
  */
+@Setter
+@Getter
 public class Cwbb {
    private String supplyName;
    private Double byj=0.0;//备用金
@@ -26,12 +30,13 @@ public class Cwbb {
     private Double zzf=0.0;//总支付
     private Double month=0.0;//月度
     private Double year=0.0;//年度
-    private Double bTwoCSum=0.0;//B2C 当前总额
-    private Double bTwoCMonth=0.0;//B2C 月度总额
-    private Double bTwoCYear=0.0;//B2C 年度总额
+    private Double btwocsum=0.0;//B2C 当前总额
+    private Double btwocmonth=0.0;//B2C 月度总额
+    private Double btwocyear=0.0;//B2C 年度总额
     private Double oTA=0.0;//授信OTA
     private Double zk=0.0;//授信直客
     private Double sxqt=0.0;//授信其他
+    private Double jhnq=0.0;//建行内嵌支付
 
     public Cwbb() {
     }
@@ -57,221 +62,16 @@ public class Cwbb {
         this.gs=0.0;
         this.month=0.0;
         this.year=0.0;
-        this.bTwoCSum=0.0;
-        this.bTwoCMonth=0.0;
-        this.bTwoCYear=0.0;
+        this.btwocsum=0.0;
+        this.btwocmonth=0.0;
+        this.btwocyear=0.0;
         this.oTA=0.0;
         this.zk=0.0;
         this.sxqt=0.0;
+        this.jhnq=0.0;
     }
 
-    public String getSupplyName() {
-        return supplyName;
-    }
 
-    public void setSupplyName(String supplyName) {
-        this.supplyName = supplyName;
-    }
-
-    public Double getByj() {
-        return byj;
-    }
-
-    public void setByj(Double byj) {
-        this.byj = byj;
-    }
-
-    public Double getZfb() {
-        return zfb;
-    }
-
-    public void setZfb(Double zfb) {
-        this.zfb = zfb;
-    }
-
-    public Double getYl() {
-        return yl;
-    }
-
-    public void setYl(Double yl) {
-        this.yl = yl;
-    }
-
-    public Double getWx() {
-        return wx;
-    }
-
-    public void setWx(Double wx) {
-        this.wx = wx;
-    }
-
-    public Double getZhJf() {
-        return zhJf;
-    }
-
-    public void setZhJf(Double zhJf) {
-        this.zhJf = zhJf;
-    }
-
-    public Double getZfzf() {
-        return zfzf;
-    }
-
-    public void setZfzf(Double zfzf) {
-        this.zfzf = zfzf;
-    }
-
-    public Double getXjzf() {
-        return xjzf;
-    }
-
-    public void setXjzf(Double xjzf) {
-        this.xjzf = xjzf;
-    }
-
-    public Double getWzd() {
-        return wzd;
-    }
-
-    public void setWzd(Double wzd) {
-        this.wzd = wzd;
-    }
-
-    public Double getYfk() {
-        return yfk;
-    }
-
-    public void setYfk(Double yfk) {
-        this.yfk = yfk;
-    }
-
-    public Double getSd() {
-        return sd;
-    }
-
-    public void setSd(Double sd) {
-        this.sd = sd;
-    }
-
-    public Double getJh1() {
-        return jh1;
-    }
-
-    public void setJh1(Double jh1) {
-        this.jh1 = jh1;
-    }
-
-    public Double getJh2() {
-        return jh2;
-    }
-
-    public void setJh2(Double jh2) {
-        this.jh2 = jh2;
-    }
-
-    public Double getZh() {
-        return zh;
-    }
-
-    public void setZh(Double zh) {
-        this.zh = zh;
-    }
-
-    public Double getXyzh() {
-        return xyzh;
-    }
-
-    public void setXyzh(Double xyzh) {
-        this.xyzh = xyzh;
-    }
-
-    public Double getHs() {
-        return hs;
-    }
-
-    public void setHs(Double hs) {
-        this.hs = hs;
-    }
-
-    public Double getGs() {
-        return gs;
-    }
-
-    public void setGs(Double gs) {
-        this.gs = gs;
-    }
-
-    public Double getZzf() {
-        return zzf;
-    }
-
-    public void setZzf(Double zzf) {
-        this.zzf = zzf;
-    }
-
-    public Double getMonth() {
-        return month;
-    }
-
-    public void setMonth(Double month) {
-        this.month = month;
-    }
-
-    public Double getYear() {
-        return year;
-    }
-
-    public void setYear(Double year) {
-        this.year = year;
-    }
-
-    public Double getbTwoCSum() {
-        return bTwoCSum;
-    }
-
-    public void setbTwoCSum(Double bTwoCSum) {
-        this.bTwoCSum = bTwoCSum;
-    }
-
-    public Double getbTwoCMonth() {
-        return bTwoCMonth;
-    }
-
-    public void setbTwoCMonth(Double bTwoCMonth) {
-        this.bTwoCMonth = bTwoCMonth;
-    }
-
-    public Double getbTwoCYear() {
-        return bTwoCYear;
-    }
-
-    public void setbTwoCYear(Double bTwoCYear) {
-        this.bTwoCYear = bTwoCYear;
-    }
-
-    public Double getoTA() {
-        return oTA;
-    }
-
-    public void setoTA(Double oTA) {
-        this.oTA = oTA;
-    }
-
-    public Double getZk() {
-        return zk;
-    }
-
-    public void setZk(Double zk) {
-        this.zk = zk;
-    }
-
-    public Double getSxqt() {
-        return sxqt;
-    }
-
-    public void setSxqt(Double sxqt) {
-        this.sxqt = sxqt;
-    }
 
     public int getTickeSort(){
         if(TicketSorceEnum.HSFJQ.getName().equals(supplyName)){

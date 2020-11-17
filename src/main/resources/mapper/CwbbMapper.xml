@@ -23,6 +23,7 @@
         ,sum(case temp.pay_type when 9 then sums  else 0 end ) as xyzh
 --         ,sum(case temp.pay_type when 10 then sums  else 0 end ) as hs
 --         ,sum(case temp.pay_type when 11 then sums  else 0 end)  as gs
+ ,sum(case temp.pay_type when 84 then sums  else 0 end)  as jhnq
       from (
             select
             sum(od.PRICE*oc.CHECK_NUM) as sums,
@@ -63,6 +64,7 @@
         ,sum(case temp.pay_type when 9 then sums  else 0 end ) as xyzh
         ,sum(case temp.pay_type when 10 then sums  else 0 end ) as hs
         ,sum(case temp.pay_type when 11 then sums  else 0 end)  as gs
+        ,sum(case temp.pay_type when 84 then sums  else 0 end)  as jhnq
       from (
             select
             sum(od.PRICE*oc.CHECK_NUM) as sums,
