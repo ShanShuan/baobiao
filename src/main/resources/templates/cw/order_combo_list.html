@@ -1,0 +1,110 @@
+<div style="margin: 17px">
+    <div class="search_buttons" >
+        <form class="datagrid-search">
+            <div class="table_search" tyle="margin-left: 25px;margin-top: 10px;">
+                <input placeholder="开始时间" data-options="dateFmt:'yyyy-MM-dd'"
+                       class="input-text search-input Wdate date-widget" name="startTime"/>
+                <input placeholder="结束时间" data-options="dateFmt:'yyyy-MM-dd'"
+                       class="input-text search-input Wdate date-widget" name="endTime"/>
+<!--                <button type="button" name="search" class="btn btn-success radius" style="margin-bottom:5px;"> 查询</button>-->
+                <button type="button" name="xx" class="btn btn-success radius" style="margin-bottom:5px;"> 导出</button>
+            </div>
+        </form>
+    </div>
+    <style type="text/css">
+        .layui-table-cell {
+            width: auto;
+        }
+    </style>
+    <div id="all">
+        <table id="show" class="layui-table" lay-data="{url:'', cellMinWidth: 80, page: false,toolbar: true}" style="margin: 17px">
+
+        </table>
+    </div>
+</div>
+<script>
+
+
+
+    layui.use('table', function () {
+        var table = layui.table;
+        var layer= layui.layer;
+
+
+        $('button[name="xx"]').click(function () {
+
+            var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            var st=$('input[name="startTime"]').val();
+            var et=$('input[name="endTime"]').val();
+            var finalStTime='';
+            var finalEtTime='';
+            if(!(st==""||st==null||st==undefined)) {
+                var stTime = new Date(st);
+                var stFullYear = stTime.getFullYear();
+                var stMonth = stTime.getMonth()+1;
+                var stDay = stTime.getDate();
+                finalStTime=stFullYear+'年'+stMonth+'月'+stDay+'日';
+            }
+
+            if(!(et==""||et==null||et==undefined)) {
+                var etTime = new Date(et);
+                var etFullYear = etTime.getFullYear();
+                var etMonth = etTime.getMonth()+1;
+                var etDay = etTime.getDate();
+                if(!(st==""||st==null||st==undefined)){
+                    if(stFullYear===etFullYear){
+                        if(etMonth===stMonth){
+                            finalEtTime=etDay+'日';
+                        }else{
+                            finalEtTime=etMonth+'月'+etDay+'日';
+                        }
+                    }else{
+                        finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                    }
+                }else {
+                    finalEtTime=etFullYear+'年'+etMonth+'月'+etDay+'日';
+                }
+            }
+
+            function down(myurl,name){
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('PUT', myurl+"&name="+name, true);    // 也可以使用POST方式，根据接口
+                xhr.responseType = "blob";  // 返回类型blob
+                // 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
+                xhr.onload = function () {
+                    // 请求完成
+                    // if (this.status === 200) {
+                        // 返回200
+                        var blob = this.response;
+                        console.log(blob);
+                        var reader = new FileReader();
+                        reader.readAsDataURL(blob);  // 转换为base64，可以直接放入a表情href
+                        reader.onload = function (e) {
+                            // 转换完成，创建一个a标签用于下载
+                            var a = document.createElement('a');
+                            a.download = name;
+                            a.href = e.target.result;
+                            document.body.append(a);  // 修复firefox中无法触发click
+                            a.click();
+                            $(a).remove();
+                            layer.close(index);
+                        }
+                    // }
+
+                };
+
+                xhr.ontimeout = function(e) {layer.close(index); };
+                xhr.onerror = function(e) {  layer.close(index);};
+                // 发送ajax请求
+                xhr.send();
+
+
+            }
+
+
+            down( "/order/downLoadCombo?startTime="+st+"&endTime="+et,"套票订单.xls");
+
+        });
+    });
+</script>

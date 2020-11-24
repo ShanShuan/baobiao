@@ -56,10 +56,14 @@
     CONCAT(date_format(od.START_DATE,'%Y-%m-%d'),'~',date_format(od.END_DATE,'%Y-%m-%d')) AS startDate,
     oi.ORDER_GIFT as orderGift,
     oi.NOTE_BOOK as noteBook,
-    oi.DISTRIBUTOR_NAME as distributorName
+    oi.DISTRIBUTOR_NAME as distributorName,
+    oi.LINK_IDCARD as idCard,
+    orf.REFUND_SUM as refundSum,
+    orf.REFUND_NUM as refundNum
     FROM
     order_info oi
     INNER JOIN order_detail od ON oi.id = od.ORDER_ID
+    left join order_refund orf on orf.ORDER_NO=oi.ORDER_NO
     WHERE
     oi.deleted = 'F'
     AND od.DELETED = 'F'
@@ -74,6 +78,116 @@
     <if test="endTime!=null and  endTime!=''">
       AND od.START_DATE &lt;#{endTime}
     </if>
+    <if test="idCard!=null and  idCard!=''">
+      AND oi.LINK_IDCARD =#{idCard}
+    </if>
     AND od.SUPPLY_ID not in ('1','2','3','53','55','363')
+  </select>
+  <select id="listCombo" resultType="com.pc.huangshan.model.cwbb.OrderComboInfoDO">
+          SELECT
+          '套票' as orderType,
+          oi.ORDER_NO as orderNo,
+          CASE oi.WAY_TYPE
+          when '0' THEN 'pc'
+          when '1' THEN '微信'
+          when '2' THEN 'wap'
+          when '3' THEN 'app'
+          when '4' THEN '管理员'
+          when '5' THEN 'B2B'
+          when '6' THEN 'OTA'
+          when '9' THEN 'ccb'
+          when '10' THEN 'CUP'
+          end as  wayType,
+          (
+          CASE oi.ORDER_STATUS
+          WHEN '0' THEN '待支付'
+          WHEN '1' THEN '取消中'
+          WHEN '2' THEN '取消失败'
+          WHEN '3' THEN '已取消'
+          WHEN '4' THEN '已过期'
+          WHEN '5' THEN '订单成功'
+          WHEN '6' THEN '订单完结'
+          WHEN '7' THEN '全部退单'
+          WHEN '8' THEN'待确认'
+          ELSE oi.ORDER_STATUS
+          END ) AS orderStatus,
+          oi.PAY_TIME AS payTime,
+          CASE oi.PAY_TYPE
+          WHEN '4' THEN '银联'
+          WHEN '6' THEN '备用金'
+          WHEN '9' THEN '信用账户'
+          WHEN '21' THEN 'PC支付宝'
+          WHEN '22' THEN '支付宝'
+          WHEN '31' THEN 'PC微信扫码支付'
+          WHEN '32' THEN 'wap微信公众号支付'
+          WHEN '33' THEN '微信小程序支付'
+          WHEN '34' THEN '微信'
+          WHEN '48' THEN '银联支付'
+          WHEN '61' THEN'积分支付'
+          WHEN '99' THEN '现金支付'
+          WHEN '-1' THEN '零元支付' ELSE oi.PAY_TYPE END
+          AS payType,
+          oi.COUPON_SUM AS couponSum,
+          oi.ORDER_SUM AS orderSum,
+          oi.LINK_NAME as linkName,
+          oi.LINK_MOBILE as linkMobile,
+          oi.LINK_ADDR as linkAddr,
+          oi.ORDER_GIFT as orderGift,
+          oit.TEAM_NO as teamNo,
+          oi.NOTE_BOOK as noteBook,
+          oi.DISTRIBUTOR_NAME as distributorName,
+          hh.GROUP_NAME as groupName,
+          case oi.SYNC_STATUS
+          when  '0' then '未同步'
+          when  '1' then '同步成功'
+          when  '2' then '同步失败'
+          when  '3' then '同步中'
+          ELSE oi.SYNC_STATUS END
+          as syncStatus,
+          orf.REFUND_SUM as refundSum
+          FROM
+          order_info oi
+          LEFT JOIN order_detail od on od.ORDER_NO=oi.ORDER_NO
+          LEFT join order_info_team oit on oit.ORDER_NO=oi.ORDER_NO
+          JOIN ratecode rc  on rc.id=oi.RATE_ID
+          right join 	 (select wci.rate_code,wcg.GROUP_NAME from  web_combo_info wci join web_combo_group wcg  on wcg.id=wci.COMBO_GROUP_ID group by wci.rate_code ) hh
+          on hh.rate_code=rc.RATE_CODE
+         left join order_refund orf on orf.ORDER_NO=oi.ORDER_NO
+          WHERE
+          oi.deleted = 'F'
+          and oi.ORDER_TYPE='combo'
+          and oi.ORDER_INFO not like '【三票合售】%'
+          and oi.ORDER_INFO not like '【两票合售】%'
+          and oi.ORDER_STATUS !='7'
+          and  oi.PAY_STATUS = '3'
+      <if test="startTime!=null and  startTime!=''">
+          AND od.END_DATE >= #{startTime}
+      </if>
+      <if test="endTime!=null and  endTime!=''">
+          AND od.START_DATE &lt;#{endTime}
+      </if>
+
+      group by oi.ORDER_NO
+  </select>
+  <select id="selectOrderComboDetailByOrderNo" resultType="com.pc.huangshan.model.cwbb.OrderComboDetailDO">
+    select
+    od.ORDER_INFO AS orderInfo, -- 产品名称
+    od.PRICE AS odPrice, -- 销售单价
+    od.AMOUNT AS amount,-- 数量
+    case od.CONFIRM_STATUS
+    when '0' then '同步成功'
+    when '2' then '未同步'
+    else '无' end as syncStatus,-- 同步状态
+	CONCAT(date_format(od.START_DATE,'%Y-%m-%d'),'~',date_format(od.END_DATE,'%Y-%m-%d')) AS startDate, -- 抵离日期
+      ord.REFUND_PRICE as refundPrice,
+      ord.REFUND_NUM as  refundNum,
+      SUM(ord.REFUND_SUM) as refundSum
+    from order_detail od
+    left join order_refund_detail ord on ord.ORDER_DETAIL_NO=od.ORDER_DETAIL_NO
+	<where>
+      and od.ORDER_NO=#{orderNo}
+      and od.DELETED = 'F'
+    </where>
+      group by ord.ORDER_DETAIL_NO
   </select>
 </mapper>

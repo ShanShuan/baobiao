@@ -30,6 +30,10 @@ public class OrderDO {
     private String orderGift;//礼包内容
     private String noteBook;//备忘录
     private String distributorName;//分销商
+    private String idCard;//身份证号码
+
+    private String refundSum;//退单金额
+    private String refundNum;//退单数量
 
     public String getOrderType() {
         return orderType;
